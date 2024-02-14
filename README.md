@@ -11,4 +11,65 @@ A pervasive problem in the American Healthcare system is the existence of “gho
 
 ## Getting Started
 
-##
+## Matching Data: 
+ 
+
+**NPI Registry**
+
+Description: This is a dataset of National Provider Identification Numbers. All health care providers need to apply for one in order to bill.  
+
+**Data access:** 
+
+API: https://npiregistry.cms.hhs.gov/api-page  
+
+Downloadable Data: https://www.cms.gov/medicare/regulations-guidance/administrative-simplification/data-dissemination  
+
+Description: https://www.cms.gov/outreach-and-education/medicare-learning-network-mln/mlnproducts/downloads/npi-what-you-need-to-know.pdf  
+
+Illinois Medicaid Health Insurance Providers: 
+
+Overview: https://hfs.illinois.gov/medicalclients/managedcare.html  
+
+Scrapable Data: 
+
+Aetna (Best option): https://www.aetnabetterhealth.com/Illinois-medicaid/find-provider   
+
+Blue Cross Blue Shield: https://my.providerfinderonline.com/?ci=il-med-cchp&network_id=11152019&geo_location=41.780399999999986,-87.6027&locale=en  
+
+**County Care** 
+
+https://countycare.valence.care/member/#findAProvider
+
+**Molina** 
+
+Illinois License Look-Up 
+
+Overview on counselor licenses in Illionois: https://www.thechicagoschool.edu/insight/career-development/difference-lpc-lcpc-licensing-illinois/#:~:text=According%20to%20the%20Illinois%20General,%2C%20substance%20abuse%2C%20and%20more.  
+
+Bulk Data Lookup: https://idfpr.illinois.gov/licenselookup/bulklookup.html  
+
+Data (with Captcha): https://www.illinois.gov/services/service.professional-license-look-up.html  
+
+Physician Data for Researchers: https://www.ilsos.gov/departments/archives/databases/physearch.html  
+
+APA Psychologist Locator 
+
+Overview: The American Psychology Association’s Portal to help patients find therapists. 
+
+Data: https://locator.apa.org/results/1/60615/25/  
+
+National Register of Psychologists 
+
+https://www.findapsychologist.org/  
+
+ 
+
+ 
+
+**How can we validate providers?** 
+
+Requirements for Illinois Medicaid Providers 
+
+Source: https://hfs.illinois.gov/content/dam/soi/en/web/hfs/sitecollectiondocuments/Chapter100GeneralHandbook.pdf  
+
+ 
