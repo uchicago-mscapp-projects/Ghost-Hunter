@@ -6,7 +6,7 @@ ALLOWED_DOMAINS = ("https://countycare",)
 
 REQUEST_DELAY = 0.1
 
-def make_post(url, dictionary, h):
+def make_post(url, dictionary):
     """
     Make a request to `url` and return the raw response.
 
@@ -23,7 +23,7 @@ def make_post(url, dictionary, h):
     print(f"Fetching {url}")
     
 
-    r = requests.post(url, data=dictionary, headers=h)
+    r = requests.post(url, json=dictionary)
     
     return r
 
