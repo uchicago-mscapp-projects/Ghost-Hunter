@@ -1,3 +1,6 @@
+#Filepaths
+gh/scrapers/county\ care/zip_locations.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
