@@ -138,3 +138,8 @@ def gen_provider_types_dict():
             p_types_dict[ptype] = key
     
     return p_types_dict, inconsistencies
+
+
+# we now need a list of lat long coordinates associated with each zipcode
+
+# looks promising: https://www.hashbangcode.com/article/find-longitude-and-latitude-postcode-or-zipcode-using-google-maps-and-php
