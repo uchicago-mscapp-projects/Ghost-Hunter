@@ -3,13 +3,10 @@ import lxml
 import requests
 from utils import make_request, make_post
 
-url = "https://countycare.valence.care/member/rest/findAProvider/search"
-
-
 post_data = {"providerTypeSelect": "",
  "providerName": "",
- "mileRadiusForSearch": "1",
- "mileRadius": "1",
+ "mileRadiusForSearch": "5",
+ "mileRadius": "5",
  "gender": "",
  "network": "",
  "service": "",
@@ -83,17 +80,48 @@ search_page_url = "https://countycare.valence.care/member/rest/findAProvider/sea
 
 def scrape_ccare():
     """
-    Runs make_request with ccare data. 
+    Scrape's county care's provider directory. 
     """
+    ccare_scrape = {}
 
-    r = make_post(url, post_data)
+    with open("cook_county_coordinates_zips.json") as f:
+        address_params = json.load(f)
 
-    list = r.json()
+    doc_types_dict = gen_provider_types_dict()
 
-    return list
+    for zip_code, coord in address_params.items():
+        zip_dict = {}
+        ccare_scrape[zip_code] = zip_dict
+        
+        post_data["providerAddress"] = coord
+        post_data["searchAddress"] = zip_code + ", IL"
+
+        for doc_type, code in doc_types_dict.items():
+            
+            print(zip_code, doc_type)
+            
+            post_data["providerTypeSelect"] = code
+            r = make_post(search_page_url, post_data)
+            if len(r.text) <= 2:
+                print("Empty")
+            
+            scrape_data = r.json()
+
+            zip_dict[code] = scrape_data
+
+            with open("ccare_scrape.json", "w") as f:
+                json.dump(scrape_data, f, indent=4, sort_keys=True)
+
+
 
 
 def scrape_test_provider_id(blanks):
+    """
+    This function tests all numbers after "01" to see which was are used as codes 
+    for provider types. If the post request recieves data it appends the data to a dictionary
+    which is later returned. 
+    """
+
     post_data["providerTypeSelect"] = "01"
     scrape_dict = {}
     misses = 0
@@ -117,9 +145,11 @@ def scrape_test_provider_id(blanks):
         json.dump(scrape_dict, f, indent=4, sort_keys=True)
     
 
-def gen_provider_types_dict():
+def gen_provider_types_dict(incon = False):
     """
     This function checks the scraped dictionaries to make sure provider type is consistently used.
+    It returns a dictionary that maps numbers onto provider types to use when scraping and a count of any potential
+    inconsistencies.
     """
     with open("provider_scrape_test.json") as f:
         scrape_lists = json.load(f)
@@ -136,10 +166,7 @@ def gen_provider_types_dict():
                 break
         if key not in inconsistencies:
             p_types_dict[ptype] = key
+    if incon is True:
+        return p_types_dict, inconsistencies
     
-    return p_types_dict, inconsistencies
-
-
-# we now need a list of lat long coordinates associated with each zipcode
-
-# looks promising: https://www.hashbangcode.com/article/find-longitude-and-latitude-postcode-or-zipcode-using-google-maps-and-php
+    return p_types_dict
