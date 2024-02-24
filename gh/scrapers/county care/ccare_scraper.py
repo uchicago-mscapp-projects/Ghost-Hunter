@@ -60,57 +60,64 @@ post_data = {"providerTypeSelect": "",
 "transactionsExcludedInd": 'false'
 }
 
-provider_types = {'Transportation': '01',
- 'Hospitals': '02',
- 'Surgery': '04',
- 'Behavioral Health Providers & Specialists': '06',
- 'Medical Specialists': '08',
- 'Hearing Services': '09',
- 'Physical, Occupational and Speech Therapy': '10',
- 'Durable Medical Equipment Suppliers': '11',
- 'Other Facilities': '13',
- 'Long Term Care Facilities & Nursing Homes': '15',
- 'Dialysis Centers': '17',
- 'Pharmacy': '18',
- 'Primary Care Facilities': '19'}
 
 url_search_results_count = "https://countycare.valence.care/member/rest/findAProvider/searchResultSize"
 
 search_page_url = "https://countycare.valence.care/member/rest/findAProvider/search"
 
-def scrape_ccare():
+def scrape_ccare(re_scrape = False, use_provider_codes = True):
     """
     Scrape's county care's provider directory. 
     """
-    ccare_scrape = {}
+    
+    if re_scrape is True:
+        ccare_scrape = {}
+    else:
+        with open("ccare_scrape.json", "w") as d:
+            ccare_scrape = json.load(d)
 
     with open("cook_county_coordinates_zips.json") as f:
         address_params = json.load(f)
 
-    doc_types_dict = gen_provider_types_dict()
+    if use_provider_codes is True:
+        provider_codes = gen_provider_types_dict()
+        provider_codes = list(provider_codes.values())
+    else:
+        provider_codes = []
+        for num in range(25):
+            code = str(num + 1)
+            if len(code) < 2:
+                code = "0" + code
+            provider_codes.append(code)
+    
+    post_data["mileRadiusForSearch"] = 10
+    post_data["mileRadius"] = 10
 
     for zip_code, coord in address_params.items():
-        zip_dict = {}
-        ccare_scrape[zip_code] = zip_dict
+        if zip_code not in ccare_scrape.keys():
+            ccare_scrape[zip_code] = {}
         
         post_data["providerAddress"] = coord
         post_data["searchAddress"] = zip_code + ", IL"
 
-        for doc_type, code in doc_types_dict.items():
+        for doc_code in provider_codes:
             
-            print(zip_code, doc_type)
+            if doc_code in ccare_scrape[zip_code]:
+                continue
+
+            print(zip_code, doc_code)
             
-            post_data["providerTypeSelect"] = code
+            post_data["providerTypeSelect"] = doc_code
             r = make_post(search_page_url, post_data)
             if len(r.text) <= 2:
                 print("Empty")
             
             scrape_data = r.json()
 
-            zip_dict[code] = scrape_data
+            ccare_scrape[zip_code][doc_code] = scrape_data
 
             with open("ccare_scrape.json", "w") as f:
-                json.dump(scrape_data, f, indent=4, sort_keys=True)
+                json.dump(ccare_scrape, f, indent=4, sort_keys=True)
 
 
 
@@ -123,10 +130,12 @@ def scrape_test_provider_id(blanks):
     """
 
     post_data["providerTypeSelect"] = "01"
+    post_data["mileRadiusForSearch"] = 50
+    post_data["mileRadius"] = 50
     scrape_dict = {}
     misses = 0
     while misses < blanks:
-        r = make_post(url, post_data)
+        r = make_post(search_page_url, post_data)
         key = post_data["providerTypeSelect"]
         provider_type = str(int(key) + 1)
         if len(provider_type) == 1:

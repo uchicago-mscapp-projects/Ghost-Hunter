@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 
 ALLOWED_DOMAINS = ("https://countycare",)
 
-REQUEST_DELAY = 0.1
+REQUEST_DELAY = 1
 
 def make_post(url, dictionary):
     """
