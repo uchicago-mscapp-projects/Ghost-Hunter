@@ -33,3 +33,8 @@ sns.move_legend(
 )
 
 
+# comando para procesar info 
+
+# funciones graficos 
+
+

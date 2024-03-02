@@ -13,6 +13,9 @@ requests = "^2.31.0"
 pandas = "^2.2.0"
 googlemaps = "^4.10.0"
 datetime = "^5.4"
+dash = "^2.16.0"
+plotly-express = "^0.4.1"
+black = "^24.2.0"
 
 
 
