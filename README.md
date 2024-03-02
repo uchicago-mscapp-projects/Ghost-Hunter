@@ -11,7 +11,11 @@ A pervasive problem in the American Healthcare system is the existence of “gho
 
 ## Getting Started:
 
-python ./app.py
+python ./app.py (Press CTRL+C to quit)
+
+#app.run(dev_tools_hot_reload=False)
+
+URL http://127.0.0.1:8050/ 
 
 ## Matching Data: 
  
