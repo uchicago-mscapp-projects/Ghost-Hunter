@@ -91,7 +91,7 @@ def scrape_ccare(re_scrape = False):
     if re_scrape is True:
         ccare_scrape = {}
     else:
-        with open("ccare_scrape.json", "w") as d:
+        with open("ccare_scrape.json") as d:
             ccare_scrape = json.load(d)
 
     with open("cook_county_coordinates_zips.json") as f:
@@ -226,4 +226,3 @@ def gen_provider_types_dict(incon = False):
     
     return p_types_dict
 
-def check_empty_zips()
