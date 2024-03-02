@@ -3,6 +3,7 @@ gh/scrapers/county\ care/zip_locations.py
 .DS_Store
 ccare_scrape.json
 ignore_test.txt
+practice.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
