@@ -1,8 +1,87 @@
 import json
 import requests
-from utils import make_post
-from search_parameters import POST_DATA, search_page_url, url_search_results_count
-from search_parameters import *
+from utils import make_request, make_post
+
+POST_DATA = {"providerTypeSelect": "",
+"providerName": "",
+"mileRadiusForSearch": "5",
+"mileRadius": "5",
+"gender": "",
+"network": "",
+"service": "",
+"speciality": "",
+"language": "",
+"specialNeeds": "",
+"handicapAccess" : "",
+"acceptNewPatient": "",
+"providerAddress": "41.80153,-87.60134",
+"hospitalAffiliation": "",
+"groupAffiliation": "",
+"groupAffiliationName": "",
+"providerFirstName": "",
+"providerLastName": "",
+"providerNumber": "",
+"providerCity": "",
+"providerState": "",
+"providerPhone": "",
+"lob": "",
+"policyBenefitId": "",
+"pcpOptions": "",
+"affiliationType": "",
+"errored": "",
+"searchAddress": "60615, IL",
+"patientAgeRangeSeen": "",
+"networkPriority": "",
+"accreditationTitle": "",
+"accreditationOrganization": "",
+"providerSelectOption": "LIKE",
+"acceptsBlindVisuallyImpairedPatients": "",
+"acceptsHearingImpairedPatients": "",
+"dualDemonstrationPopulationTraining": "",
+"acceptsHivAidsPatients": "",
+"acceptsHomelessPatients": "",
+"provAffiliation_specialNeeds": "",
+"acceptsChronicIllnessPatients": "",
+"acceptsSeriousMentalIllnessPatients": "",
+"acceptsPhysicalDisabilitiesPatients": "",
+"acceptsCoOccuringDisordersPatients": "",
+"open24By7": "",
+"adjustableExamTable": "",
+"handicapSupport": "",
+"handicapParking": "",
+"culturalCompetencyTraining":"",
+"accessibleByPublicTransportation": "",
+"translationServices": "",
+"wheelchairAccessibleExamRoom":"" ,
+"wheelchairAccessibleRestroom":"" ,
+"wheelchairRamps":"" ,
+"ttyService": "" ,
+"transactionsExcludedInd": 'false'
+}
+
+# codes that need more:  {'04', '06', '08', '10'}
+PROVIDER_TYPES = {'Primary Care Doctors/Nurses': 'PCP',
+'Transportation': '01',
+'Hospitals': '02',
+'Surgery': '04',
+'Behavioral Health Providers & Specialists': '06',
+'Medical Specialists': '08',
+'Hearing Services': '09',
+'Physical, Occupational and Speech Therapy': '10',
+'Durable Medical Equipment Suppliers': '11',
+'Other Facilities': '13',
+'Home Health': '14',
+'Long Term Care Facilities & Nursing Homes': '15',
+'Dialysis Centers': '17',
+'Pharmacy': '18',
+'Primary Care Facilities': '19',
+"Lab and Imaging": '38',
+'Supportive Living Facilities': '32',
+'Urgent Care': '39'}
+
+url_search_results_count = "https://countycare.valence.care/member/rest/findAProvider/searchResultSize"
+
+search_page_url = "https://countycare.valence.care/member/rest/findAProvider/search"
 
 def scrape_ccare(start_over=False):
     """
