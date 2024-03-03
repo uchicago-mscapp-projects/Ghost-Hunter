@@ -1,5 +1,5 @@
 import time
-import requests
+# import requests
 from urllib.parse import urlparse
 
 ALLOWED_DOMAINS = ("https://countycare",)

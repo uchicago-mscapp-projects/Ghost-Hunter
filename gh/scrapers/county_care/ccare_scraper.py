@@ -1,5 +1,5 @@
 import json
-import requests
+#import requests
 from utils import make_request, make_post
 
 POST_DATA = {"providerTypeSelect": "",
