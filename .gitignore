@@ -4,6 +4,8 @@ gh/scrapers/county\ care/zip_locations.py
 ccare_scrape.json
 ignore_test.txt
 practice.json
+ccare_results_clean.json
+re_scrape_ccare.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
