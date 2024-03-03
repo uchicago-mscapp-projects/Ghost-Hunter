@@ -16,6 +16,8 @@ datetime = "^5.4"
 dash = "^2.16.0"
 plotly-express = "^0.4.1"
 black = "^24.2.0"
+numpy = "^1.26.4"
+circlify = "^0.15.0"
 
 
 

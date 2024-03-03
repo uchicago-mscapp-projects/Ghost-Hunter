@@ -269,6 +269,17 @@ files = [
 ]
 
 [[package]]
+name = "circlify"
+version = "0.15.0"
+description = "Circle packing algorithm for Python"
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "circlify-0.15.0-py2.py3-none-any.whl", hash = "sha256:4ed3a49a7af255a30c5d502c36db61f711669ac5c2f26a7bb9c6826ef8e748d4"},
+    {file = "circlify-0.15.0.tar.gz", hash = "sha256:43812a4d379032dc010a1302927f2d5a6086d3fc1f155c6259e3049fbba98eb0"},
+]
+
+[[package]]
 name = "click"
 version = "8.1.7"
 description = "Composable command line interface toolkit"
@@ -1636,4 +1647,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4.0.0"
-content-hash = "7e661a7a1675a1d495ecddeda566427b6ce989ab9fef3194f966c60e583b7a39"
+content-hash = "e3c5ac4da5105751f11bfad7c2e8cc8b0e338cb47dbdbe619176fe8e4b61e880"

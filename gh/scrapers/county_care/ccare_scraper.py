@@ -4,12 +4,12 @@ from utils import make_post
 from search_parameters import POST_DATA, search_page_url, url_search_results_count
 from search_parameters import *
 
-def scrape_ccare(re_scrape = False):
+def scrape_ccare(start_over=False):
     """
     Scrape's county care's provider directory. 
     """
     
-    if re_scrape is True:
+    if start_over is True:
         ccare_scrape = {}
     else:
         with open("ccare_scrape.json") as d:
@@ -49,6 +49,9 @@ def scrape_ccare(re_scrape = False):
             with open("ccare_scrape.json", "w") as f:
                 json.dump(ccare_scrape, f, indent=4, sort_keys=True)
         
+
+    def re_scrape():
+
         re_scrape = gen_re_scrape_list()
         for new_attempt in re_scrape:
             provider_type_select = new_attempt['providerTypeSelect']
@@ -57,17 +60,16 @@ def scrape_ccare(re_scrape = False):
             recursive_re_scraper(new_attempt, new_params, POST_DATA)
      
     
-def recursive_re_scraper(old_search, new_parameters, post_data, start_over = False):
+def recursive_re_scraper(old_search, new_parameters, post_data, start_over=False):
     """
     This function takes a list of dictionaries for searches that need to be re-run
     and recursively re-runs those searches.
     """
-    if start_over is False:
+    if start_over is True:
+        re_scrape_results = {}
+    else:
         with open("re_scrape_ccare.json") as f:
             re_scrape_results = json.load(f)
-    
-    else:
-        re_scrape_results = {}
 
     next_search = new_parameters.pop()
     
@@ -88,7 +90,6 @@ def recursive_re_scraper(old_search, new_parameters, post_data, start_over = Fal
         if len(r.text) <= 2:
             print("Empty")
         
-
         print(full_search)
 
         doc_list = r.json()
@@ -102,7 +103,7 @@ def recursive_re_scraper(old_search, new_parameters, post_data, start_over = Fal
             re_scrape_results[full_search] = r.json()
             with open("re_scrape_ccare.json", "w") as f:
                 json.dump(re_scrape_results, f, indent=4, sort_keys=True)
-            continue
+
         else:
             recursive_re_scraper(old_search, new_parameters, post_data)
         
