@@ -6,6 +6,7 @@ from clean.clean_scrap import match_scrap
 
 columns_impact = ["npi", "first_name", "last_name", "zip_code", "address"]
 
+THRESHOLD = 0.7
 
 def match(npi, scrap, impact, selected_npi, selected_scrap):
     df_npi = match_npi(npi, selected_npi)
@@ -38,7 +39,7 @@ def match(npi, scrap, impact, selected_npi, selected_scrap):
                 row["first_name_y"], row["first_name_x"]
             )
             # Check the condition and fill 'npi'
-            if sim_name_prob >= 0.7:
+            if sim_name_prob >= THRESHOLD:
                 df_scrap_2.at[index, "npi_x"] = df_scrap_2.at[index, "npi_y"]
 
     df_scrap_2.rename(
@@ -71,9 +72,9 @@ def match(npi, scrap, impact, selected_npi, selected_scrap):
                 row["address"], zip_row["address"]
             )
             if (
-                sim_name_prob >= 0.7
-                and sim_last_prob >= 0.7
-                and sim_address_prob >= 0.7
+                sim_name_prob >= THRESHOLD
+                and sim_last_prob >= THRESHOLD
+                and sim_address_prob >= THRESHOLD
             ):
                 df_scrap.at[index, "npi"] = zip_row["npi"]
 

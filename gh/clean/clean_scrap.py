@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 
-columns_to_match_scrap = [
+columns_to_match = [
     "first_name",
     "last_name",
     "phone_number",
@@ -37,7 +37,7 @@ def clean_scrap(json_path, columns_path):
 
 
 def match_scrap(scrap, columns):
-    df = clean_scrap(scrap, columns)[columns_to_match_scrap]
+    df = clean_scrap(scrap, columns)[columns_to_match]
     df.dropna(inplace=True)
     df.drop_duplicates(inplace=True)
 
