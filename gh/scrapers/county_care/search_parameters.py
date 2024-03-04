@@ -1,5 +1,3 @@
-
-
 PROVIDER_TYPES = {'Primary Care Doctors/Nurses': 'PCP',
 'Transportation': '01',
 'Hospitals': '02',
@@ -21,8 +19,8 @@ PROVIDER_TYPES = {'Primary Care Doctors/Nurses': 'PCP',
 
 POST_DATA = {"providerTypeSelect": "06",
 "providerName": "",
-"mileRadiusForSearch": "5",
-"mileRadius": "5",
+"mileRadiusForSearch": "10",
+"mileRadius": "10",
 "gender": "",
 "network": "",
 "service": "",
@@ -80,7 +78,7 @@ url_search_results_count = "https://countycare.valence.care/member/rest/findAPro
 
 search_page_url = "https://countycare.valence.care/member/rest/findAProvider/search"
 
-SECOND_SEARCH_PARAMS = [("gender", ["M", "F"])]
+SECOND_SEARCH_PARAMS = ("gender", ["M", "F"])
 
 BEHAVIORAL_SPECIALTIES = [ "103TA0400X", "101YA0400X", "115", "08", "101Y00000X",
 "2084P0805X", "103G00000X", "114", "107"]
