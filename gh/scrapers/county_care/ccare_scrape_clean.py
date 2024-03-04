@@ -25,8 +25,8 @@ def ccare_scrape_unpacker():
     Returns: Nothing. This function writes the output to 
     "ccare_results_clean.json."
     """
-
-    with open("gh/scrapers/county_care/ccare_scrape.json") as f:
+#gh/scrapers/county_care/
+    with open("ccare_scrape.json") as f:
         scrape_data = json.load(f)
     
     clean_data = []
@@ -35,11 +35,11 @@ def ccare_scrape_unpacker():
         for _, doc_list in doc_dict.items():
             clean_data.extend(doc_list)
     
-    with open("gh/scrapers/county_care/re_scrape_ccare.json") as d:
+    with open("re_scrape_ccare.json") as d:
         re_scrape = json.load(d)
     
     for _, value in re_scrape.items():
         clean_data.extend(value)
 
-    with open("gh/scrapers/county_care/ccare_results_clean.json", "w") as f:
+    with open("ccare_results_clean.json", "w") as f:
         json.dump(clean_data, f, indent=4, sort_keys=True)    
