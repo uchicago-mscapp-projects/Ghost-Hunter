@@ -1,6 +1,5 @@
 import pandas as pd
-
-#from linkage import 
+import pathlib
 
 def merge_data_visualization():
     '''
@@ -8,12 +7,11 @@ def merge_data_visualization():
     
     Returns: dataframe
     '''
-
-    df_merge = pd.read_csv('/Users/magdalenabarros/Downloads/OneDrive_1_3-3-2024/merge.csv')
     
-    df_impact = pd.read_csv('/Users/magdalenabarros/Downloads/OneDrive_1_3-3-2024/impact.csv')
-    
-    df_scrap = pd.read_csv('/Users/magdalenabarros/Downloads/OneDrive_1_3-3-2024/scrap.csv')
+    merge_path = pathlib.Path(__file__).parent / "merge.csv"
+    scrap_path = pathlib.Path(__file__).parent / "scrap.csv"
+    df_merge = pd.read_csv(merge_path)
+    df_scrap = pd.read_csv(scrap_path)
 
     #merge the merge and the scrape data
     df= pd.merge(df_merge, df_scrap, how='left', on=['first_name','last_name','phone_number'])
