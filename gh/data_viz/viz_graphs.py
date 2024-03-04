@@ -6,7 +6,7 @@ import urllib3
 
 
 #import functions
-from data_analysis import merge_data_visualization, get_match_providertype_data, get_match_zipcode_data
+from gh.data_viz.data_analysis import merge_data_visualization, get_match_providertype_data, get_match_zipcode_data
 
 
 

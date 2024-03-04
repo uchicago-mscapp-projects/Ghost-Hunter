@@ -1,6 +1,6 @@
 import pandas as pd
 
-#import clean function from linkage
+#from linkage import 
 
 def merge_data_visualization():
     '''
@@ -20,6 +20,13 @@ def merge_data_visualization():
 
     #We only want to work with people, so if they do not have first name they are institutions
     df = df[df['first_name'].notna()]
+
+    #Not consider unusual situations (institutions with first name)
+    total_count = len(df)
+    type_counts = df['type'].value_counts()
+    filtered_types = type_counts[type_counts / total_count >= 0.01].index
+    df = df[df['type'].isin(filtered_types)]
+
 
     return df 
 
