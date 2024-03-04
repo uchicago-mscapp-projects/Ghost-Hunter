@@ -1,0 +1,28 @@
+var,obs,perc,new_names,updated_obs
+NPI,8180697,100.0,npi,100.0
+Entity Type Code,7911250,96.71,entity_type,100.0
+Provider Organization Name (Legal Business Name),1692942,20.69,business_name,21.4
+Provider Last Name (Legal Name),6218069,76.01,last_name,100.0
+Provider First Name,6218221,76.01,first_name,100.0
+Provider Middle Name,3493302,42.7,middle_name,44.16
+Provider Name Prefix Text,1995664,24.39,name_prefix,25.23
+Provider Credential Text,4361860,53.32,credential,55.14
+Provider First Line Business Mailing Address,7911241,96.71,address,100.0
+Provider Business Mailing Address City Name,7911241,96.71,city,100.0
+Provider Business Mailing Address State Name,7911222,96.71,state,100.0
+Provider Business Mailing Address Postal Code,7911235,96.71,postal_code,100.0
+Provider Business Mailing Address Telephone Number,6753399,82.55,phone_number,100.0
+Provider First Line Business Practice Location Address,7911243,96.71,address_1,100.0
+Provider Business Practice Location Address City Name,7911246,96.71,city_1,100.0
+Provider Business Practice Location Address State Name,7911233,96.71,state_1,100.0
+Provider Business Practice Location Address Postal Code,7911240,96.71,postal_code1,100.0
+Provider Business Practice Location Address Telephone Number,7909721,96.69,phone_number1,99.98
+Last Update Date,7911250,96.71,last_update,100.0
+Provider Gender Code,6218281,76.01,gender,78.6
+Authorized Official Last Name,1692929,20.69,last_name1,21.4
+Authorized Official First Name,1692945,20.69,first_name1,21.4
+Authorized Official Title or Position,1692935,20.69,title,21.4
+Authorized Official Telephone Number,1692969,20.69,phone_number2,21.4
+Healthcare Provider Taxonomy Code_1,7911230,96.71,taxonomy_code,100.0
+Provider License Number_1,5193922,63.49,license_number,65.65
+Provider License Number State Code_1,5432000,66.4,license_state,68.66

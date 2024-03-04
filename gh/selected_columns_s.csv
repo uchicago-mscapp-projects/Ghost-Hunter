@@ -1,0 +1,12 @@
+var,obs,perc,new_names
+locationAddress,467334,100.0,address
+locationCity,467334,100.0,city
+locationContactPhone,454303,97.21,phone_number
+locationCounty,467332,100.0,county
+locationName,467334,100.0,business_name
+locationState,467334,100.0,state
+locationZipCode,467334,100.0,zip_code
+providerDegree,299176,64.02,degree
+providerFirstName,306780,65.64,first_name
+providerLastName,467334,100.0,last_name
+providerType,467334,100.0,type
