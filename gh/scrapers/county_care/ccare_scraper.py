@@ -1,94 +1,15 @@
 import json
 import requests
-from utils import make_request, make_post
+from utils import make_post
+from search_parameters import POST_DATA, search_page_url, url_search_results_count
+from search_parameters import *
 
-POST_DATA = {"providerTypeSelect": "",
-"providerName": "",
-"mileRadiusForSearch": "5",
-"mileRadius": "5",
-"gender": "",
-"network": "",
-"service": "",
-"speciality": "",
-"language": "",
-"specialNeeds": "",
-"handicapAccess" : "",
-"acceptNewPatient": "",
-"providerAddress": "41.80153,-87.60134",
-"hospitalAffiliation": "",
-"groupAffiliation": "",
-"groupAffiliationName": "",
-"providerFirstName": "",
-"providerLastName": "",
-"providerNumber": "",
-"providerCity": "",
-"providerState": "",
-"providerPhone": "",
-"lob": "",
-"policyBenefitId": "",
-"pcpOptions": "",
-"affiliationType": "",
-"errored": "",
-"searchAddress": "60615, IL",
-"patientAgeRangeSeen": "",
-"networkPriority": "",
-"accreditationTitle": "",
-"accreditationOrganization": "",
-"providerSelectOption": "LIKE",
-"acceptsBlindVisuallyImpairedPatients": "",
-"acceptsHearingImpairedPatients": "",
-"dualDemonstrationPopulationTraining": "",
-"acceptsHivAidsPatients": "",
-"acceptsHomelessPatients": "",
-"provAffiliation_specialNeeds": "",
-"acceptsChronicIllnessPatients": "",
-"acceptsSeriousMentalIllnessPatients": "",
-"acceptsPhysicalDisabilitiesPatients": "",
-"acceptsCoOccuringDisordersPatients": "",
-"open24By7": "",
-"adjustableExamTable": "",
-"handicapSupport": "",
-"handicapParking": "",
-"culturalCompetencyTraining":"",
-"accessibleByPublicTransportation": "",
-"translationServices": "",
-"wheelchairAccessibleExamRoom":"" ,
-"wheelchairAccessibleRestroom":"" ,
-"wheelchairRamps":"" ,
-"ttyService": "" ,
-"transactionsExcludedInd": 'false'
-}
-
-# codes that need more:  {'04', '06', '08', '10'}
-PROVIDER_TYPES = {'Primary Care Doctors/Nurses': 'PCP',
-'Transportation': '01',
-'Hospitals': '02',
-'Surgery': '04',
-'Behavioral Health Providers & Specialists': '06',
-'Medical Specialists': '08',
-'Hearing Services': '09',
-'Physical, Occupational and Speech Therapy': '10',
-'Durable Medical Equipment Suppliers': '11',
-'Other Facilities': '13',
-'Home Health': '14',
-'Long Term Care Facilities & Nursing Homes': '15',
-'Dialysis Centers': '17',
-'Pharmacy': '18',
-'Primary Care Facilities': '19',
-"Lab and Imaging": '38',
-'Supportive Living Facilities': '32',
-'Urgent Care': '39'}
-
-url_search_results_count = "https://countycare.valence.care/member/rest/findAProvider/searchResultSize"
-
-search_page_url = "https://countycare.valence.care/member/rest/findAProvider/search"
-
-def scrape_ccare(re_scrape = False):
+def scrape_ccare(start_over=False):
     """
     Scrape's county care's provider directory. 
     """
     
-    if re_scrape is True:
+    if start_over is True:
         ccare_scrape = {}
     else:
         with open("ccare_scrape.json") as d:
@@ -128,6 +49,9 @@ def scrape_ccare(re_scrape = False):
             with open("ccare_scrape.json", "w") as f:
                 json.dump(ccare_scrape, f, indent=4, sort_keys=True)
         
+
+    def re_scrape():
+
         re_scrape = gen_re_scrape_list()
         for new_attempt in re_scrape:
             provider_type_select = new_attempt['providerTypeSelect']
@@ -136,17 +60,16 @@ def scrape_ccare(re_scrape = False):
             recursive_re_scraper(new_attempt, new_params, POST_DATA)
      
     
-def recursive_re_scraper(old_search, new_parameters, post_data, start_over = False):
+def recursive_re_scraper(old_search, new_parameters, post_data, start_over=False):
     """
     This function takes a list of dictionaries for searches that need to be re-run
     and recursively re-runs those searches.
     """
-    if start_over is False:
+    if start_over is True:
+        re_scrape_results = {}
+    else:
         with open("re_scrape_ccare.json") as f:
             re_scrape_results = json.load(f)
-    
-    else:
-        re_scrape_results = {}
 
     next_search = new_parameters.pop()
     
@@ -167,7 +90,6 @@ def recursive_re_scraper(old_search, new_parameters, post_data, start_over = Fal
         if len(r.text) <= 2:
             print("Empty")
         
-
         print(full_search)
 
         doc_list = r.json()
@@ -181,7 +103,7 @@ def recursive_re_scraper(old_search, new_parameters, post_data, start_over = Fal
             re_scrape_results[full_search] = r.json()
             with open("re_scrape_ccare.json", "w") as f:
                 json.dump(re_scrape_results, f, indent=4, sort_keys=True)
-            continue
+
         else:
             recursive_re_scraper(old_search, new_parameters, post_data)
         
