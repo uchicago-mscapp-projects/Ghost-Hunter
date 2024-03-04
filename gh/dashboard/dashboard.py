@@ -1,3 +1,7 @@
+# Run this app with `python app.py` and
+# visit http://127.0.0.1:8050/ in your web browser.
+
+
 #import libraries
 import pandas as pd
 from dash import Dash, html, dcc
@@ -9,8 +13,13 @@ import matplotlib.pyplot as plt
 import dash_bootstrap_components as dbc
 
 #import graph
-from data_viz.viz_graph import bar_graph_providertype_match, bar_graph_providertype_prob_match, zicode_choropleth_graph
+from gh.data_viz.viz_graphs import bar_graph_providertype_match, bar_graph_providertype_prob_match, zicode_choropleth_graph
 
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+"""
+Creates a Dash application and adds it to a Flask server.
+"""
 
 
 def create_card():
@@ -23,7 +32,9 @@ def create_card():
     prov_county_care = 100
 
     
+    # https://www.census.gov/content/dam/Census/library/publications/2023/demo/p60-281.pdf
     usa_medicaid = "18.8%"
+    # https://hfs.illinois.gov/info/factsfigures/program-enrollment/cook.html
     illinois_medicaid = "30%"
 
     total_scrape = 100
@@ -105,9 +116,6 @@ def create_card():
     return cards
 
 
-
-app = Dash(__name__)
-
 abstract_text = '''# Project Abstract
 
 Our application audits the medicaid network of County Care, one of Illinois five 
@@ -163,4 +171,4 @@ app.layout = html.Div(children=[
 ])
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run_server(port=8050)
