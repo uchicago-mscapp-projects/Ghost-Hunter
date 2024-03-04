@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 columns_to_check = ["phone_number", "phone_number1", "phone_number2"]
 columns_to_match = [
