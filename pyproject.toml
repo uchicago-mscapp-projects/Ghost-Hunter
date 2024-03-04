@@ -22,6 +22,7 @@ urllib3 = "^2.2.1"
 jsons = "^1.6.3"
 numpy = "^1.26.4"
 circlify = "^0.15.0"
+dash-bootstrap-components = "^1.5.0"
 
 
 
