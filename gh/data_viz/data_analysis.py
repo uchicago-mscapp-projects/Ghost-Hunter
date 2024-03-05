@@ -8,10 +8,10 @@ def merge_data_visualization():
     Returns: dataframe
     '''
     
-    merge_path = pathlib.Path(__file__).parent / "merge.csv"
-    scrap_path = pathlib.Path(__file__).parent / "scrap.csv"
-    df_merge = pd.read_csv(merge_path)
-    df_scrap = pd.read_csv(scrap_path)
+    # merge_path = pathlib.Path(__file__).parent / "merge.csv"
+    # scrap_path = pathlib.Path(__file__).parent / "scrap.csv"
+    df_merge = pd.read_csv("gh/merge.csv")
+    df_scrap = pd.read_csv("gh/scrap.csv")
 
     #merge the merge and the scrape data
     df= pd.merge(df_merge, df_scrap, how='left', on=['first_name','last_name','phone_number'])
