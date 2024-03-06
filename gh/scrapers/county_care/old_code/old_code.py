@@ -1,3 +1,5 @@
+import json
+
 def recursive_re_scraper(old_search, new_parameters, post_data):
     """
     This function takes a list of dictionaries for searches that need to be re-run

@@ -1,8 +1,8 @@
 import json
 import requests
 from utils import make_post
-from search_parameters import POST_DATA, search_page_url, url_search_results_count
-from search_parameters import PROVIDER_TYPES
+from gh.scrapers.county_care.search_parameters.search_parameters import POST_DATA, search_page_url, url_search_results_count
+from gh.scrapers.county_care.search_parameters.search_parameters import PROVIDER_TYPES
 
 
 def scrape_test_provider_id():

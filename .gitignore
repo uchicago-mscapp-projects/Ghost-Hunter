@@ -1,5 +1,4 @@
 #Filepaths
-gh/scrapers/county\ care/zip_locations.py
 .DS_Store
 ccare_scrape.json
 ignore_test.txt
