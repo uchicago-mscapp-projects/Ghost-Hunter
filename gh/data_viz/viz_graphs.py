@@ -1,77 +1,90 @@
-#import libraries
+# import libraries
 from dash import dcc
 import plotly.express as px
 import urllib3
 
 
-
-#import functions
-from gh.data_viz.data_analysis import merge_data_visualization, get_match_providertype_data, get_match_zipcode_data
-
-
-
-def bar_graph_providertype_match(title, match_color, nonmatch_color):
-        """
-        Returns (object): DCC Graph.
-        """ 
-        #Load data
-        df = merge_data_visualization()
-        data = get_match_providertype_data(df)
-
-        #Create a figure
-        fig = px.bar(data, x=['Match', 'Non-Match'], y='Provider Type',
-                     title = title,
-                     color_discrete_map={
-        'Match': match_color,
-        'Non-Match': nonmatch_color},
-                     orientation='h')
-        
-        return dcc.Graph(id=f'total_match_providertype', figure=fig)
-
-
-def bar_graph_providertype_prob_match(title, match_color):
+def bar_graph_providertype_match(data, title, match_color, nonmatch_color):
     """
+    Create a graph bar with the total match and non-match for each provider type.
+
+    Inputs:
+    data (dataframe)
+    title (str)
+    match_color (str)
+    nonmatch_color(str)
+
     Returns (object): DCC Graph.
-    """ 
+    """
 
-    #Load data
-    df = merge_data_visualization()
-    data = get_match_providertype_data(df)
+    fig = px.bar(
+        data,
+        x=['Match', 'Non-Match'],
+        y='type',
+        title=title,
+        color_discrete_map={'Match': match_color, 'Non-Match': nonmatch_color},
+        orientation="h",
+    )
 
-    #Create a figure   
-    fig = px.bar(data, x='Provider Type', y='Prob Match', 
-                 title= title,
-                 color_discrete_sequence =[match_color]*len(df),  
-                 range_y=(0,1))
-
-    return dcc.Graph(id=f'percentage_match_providertype', figure=fig)
-
+    return dcc.Graph(id=f"total_match_providertype", figure=fig)
 
 
-def zicode_choropleth_graph():
-    '''
-    '''
-    df = merge_data_visualization()
-    data =  get_match_zipcode_data(df)
+def bar_graph_providertype_match_percentage(data, title, match_color):
+    """
+    Create a graph bar with the percentage matches for each provider type.
 
-    #Illinois Zip code (gives the coordinates)
-    url='https://raw.githubusercontent.com/OpenDataDE/State-zip-code-GeoJSON/master/il_illinois_zip_codes_geo.min.json'
-    response = urllib3.request('GET',url)
+    Inputs:
+    data (dataframe)
+    title (str)
+    match_color (str)
+
+    Returns (object): DCC Graph.
+    """
+
+    fig = px.bar(
+        data,
+        x='type',
+        y='Percentage Match',
+        title=title,
+        color_discrete_sequence=[match_color] * len(data),
+        range_y=(0, 1),
+    )
+
+    return dcc.Graph(id=f"percentage_match_providertype", figure=fig)
+
+
+def nonmatch_zicode_choropleth_graph(data, title, nonmatch_color):
+    """
+    Create a choropleth graph with all the zip code of the providers address and
+    color with the scale for nonmatches percentage.
+
+    Inputs:
+    data (dataframe)
+    title (str)
+    color (str)
+
+    Returns (object): DCC Graph.
+    """
+
+    # Load Illinois zipcode coordinates
+    url = "https://raw.githubusercontent.com/OpenDataDE/State-zip-code-GeoJSON/master/il_illinois_zip_codes_geo.min.json"
+    response = urllib3.request("GET", url)
     zipcodes = response.json()
 
-    fig = px.choropleth(data, 
-                        geojson=zipcodes, 
-                        locations='Zip Code', 
-                        color='Prob Non-Match',
-                        color_continuous_scale="blues",
-                        range_color=(0,1),
-                        featureidkey="properties.ZCTA5CE10",
-                        scope='usa', 
-                        labels={'Cluster':'Cluster_Category'}
-                            )
-    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    # Create a figure
+    fig = px.choropleth(
+        data,
+        geojson = zipcodes,
+        locations = 'zip_code',
+        title = title,
+        color='Percentage Non-Match',
+        color_continuous_scale = nonmatch_color,
+        range_color=(0, 1),
+        featureidkey="properties.ZCTA5CE10",
+        scope="usa",
+        labels={"Cluster": "Cluster_Category"},
+    )
+    fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 
-
-    return dcc.Graph(id=f'percentage_match_providertype', figure=fig)
-
+    return dcc.Graph(id=f"nonmatch_zipcode_graph", figure=fig)
 
