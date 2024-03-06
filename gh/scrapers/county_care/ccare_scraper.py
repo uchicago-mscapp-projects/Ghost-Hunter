@@ -1,10 +1,10 @@
 import json
-from .utils import make_post
-from .search_parameters import POST_DATA, search_page_url, url_search_results_count
-from .search_parameters import *
 import pathlib
+import search_parameters
+from utils import make_post
 
-pathlib.Path(_file_).parent / "data/selected_columns.csv"
+
+#pathlib.Path(_file_).parent / "data/selected_columns.csv"
 #ccare_scrape.json 
 
 def scrape_ccare(start_over=False):
@@ -26,22 +26,22 @@ def scrape_ccare(start_over=False):
     # ccare_scrape is a dictionary of dictionaries. The first nested layer corresponds
     # to the zip codes used on the search. The second nested layer corresponds to the
     # provider type code used.
-        with open("gh/scrapers/county_care/ccare_scrape.json") as d:
+        with open("ccare_scrape.json") as d:
             ccare_scrape = json.load(d)
 
     # address_params is a dictionary of zip-code, lat-long pairs. The lat-long
     # coordinates are the centroids of the zip-codes and they are pulled from 
     # a google maps API. The lat-long coordinates are needed to make a post
     # to the county care website.
-    with open("gh/scrapers/county_care/cook_county_coordinates_zips.json") as f:
+    with open("cook_county_coordinates_zips.json") as f:
         address_params = json.load(f)
     
     # Converts the dictionary of provider types into a list.
-    provider_codes = list(PROVIDER_TYPES.values()) 
+    provider_codes = list(search_parameters.PROVIDER_TYPES.values()) 
     
     # Each search will cover all provider within 10 miles of the provided centroid.
-    POST_DATA["mileRadiusForSearch"] = 10
-    POST_DATA["mileRadius"] = 10
+    search_parameters.POST_DATA["mileRadiusForSearch"] = 10
+    search_parameters.POST_DATA["mileRadius"] = 10
 
     #Iteratting first over zip code and lat-long pairs.
     for zip_code, coord in address_params.items():
@@ -53,8 +53,8 @@ def scrape_ccare(start_over=False):
         
         # Here we update our post_data with the lat long coordinates and the
         # zip code of the search.
-        POST_DATA["providerAddress"] = coord
-        POST_DATA["searchAddress"] = "".join([zip_code, ", IL"])
+        search_parameters.POST_DATA["providerAddress"] = coord
+        search_parameters.POST_DATA["searchAddress"] = "".join([zip_code, ", IL"])
 
         # Now we iterate throught provider type codes.
         for doc_code in provider_codes:
@@ -68,10 +68,10 @@ def scrape_ccare(start_over=False):
             print(zip_code, doc_code)
             
             # update the post_data to the provider code
-            POST_DATA["providerTypeSelect"] = doc_code
+            search_parameters.POST_DATA["providerTypeSelect"] = doc_code
             
             # make the post to the provider type search.
-            r = make_post(search_page_url, POST_DATA)
+            r = make_post(search_parameters.search_page_url, search_parameters.POST_DATA)
             
             # remove
             if len(r.text) <= 2:
@@ -87,7 +87,7 @@ def scrape_ccare(start_over=False):
 
             # After updating the dictionary we always save our data locally so that
             # we still have data even if the scraper stops.
-            with open("gh/scrapers/county_care/ccare_scrape.json", "w") as f:
+            with open("ccare_scrape.json", "w") as f:
                 json.dump(ccare_scrape, f, indent=4, sort_keys=True)
         
 
@@ -103,16 +103,16 @@ def re_scrape(re_re_do=False):
     previous second round scrapes. 
     """
     
-    POST_DATA['mileRadiusForSearch'] = 10
-    POST_DATA['mileRadius'] = 10
-    re_scrape = gen_re_scrape_list()
+    search_parameters.POST_DATA['mileRadiusForSearch'] = 10
+    search_parameters.POST_DATA['mileRadius'] = 10
+    re_scrape_list = gen_re_scrape_list()
     
     if re_re_do is True:
         re_scrape_results = {}
         with open("re_scrape_ccare.json", "w") as f:
             json.dump(re_scrape_results, f, indent=4, sort_keys=True)
     
-    for new_attempt in re_scrape:
+    for new_attempt in re_scrape_list:
 
         filter_iteration(new_attempt)
 
@@ -124,8 +124,8 @@ def filter_iteration(old_search):
     # Before running any additional queries we make sure our second query filters
     # are blank. Unlike previous filters, these do not need to be present for a search
     # and failing to re-set them can cause values to carry over betweeen queries.
-    POST_DATA['gender'] = ""
-    POST_DATA['speciality'] = ""
+    search_parameters.POST_DATA['gender'] = ""
+    search_parameters.POST_DATA['speciality'] = ""
 
     # This loads all previous searches into a dictionary that we will update after
     # every post request.
@@ -134,15 +134,15 @@ def filter_iteration(old_search):
     
     # Set the base post-request to replicate the query that we are iterating on.
     for query_type, value in old_search.items():
-        POST_DATA[query_type] = value
+        search_parameters.POST_DATA[query_type] = value
     
     # Our first added filter is gender. This creates a variable for the query
     # and for each potential value we could use to query.
-    gender_query, gender_values = SECOND_SEARCH_PARAMS
+    gender_query, gender_values = search_parameters.SECOND_SEARCH_PARAMS
 
     # We iterate over each value in sex (just "M" and "F")
     for sex in gender_values:
-        POST_DATA[gender_query] = sex
+        search_parameters.POST_DATA[gender_query] = sex
 
         # This updates the dictionary of search terms to include gender
         # and converts all keys into a string that will be the key to our final
@@ -158,7 +158,7 @@ def filter_iteration(old_search):
 
             # This lets the viewer know which query is being executed.
             print(full_search)
-            r = make_post(search_page_url, POST_DATA)
+            r = make_post(search_parameters.search_page_url, search_parameters.POST_DATA)
 
             # Our output is always in json format.
             doc_list = r.json()
@@ -197,10 +197,10 @@ def filter_iteration(old_search):
             
             print("Applying specialities filters")
             re_scrape_results[full_search] = []
-            specialties_list = SPECIALTIES_BY_CODE[old_search['providerTypeSelect']]
+            specialties_list = search_parameters.SPECIALTIES_BY_CODE[old_search['providerTypeSelect']]
 
             for s in specialties_list:
-                POST_DATA['speciality'] = s
+                search_parameters.POST_DATA['speciality'] = s
 
                 new_search['spciality'] = s
                 dict_values_list = list(new_search.values())
@@ -210,16 +210,16 @@ def filter_iteration(old_search):
                     continue
                 
                 print(full_search)
-                r = make_post(search_page_url, POST_DATA)
+                r = make_post(search_parameters.search_page_url, search_parameters.POST_DATA)
                 re_scrape_results[full_search] = r.json()
                 with open("re_scrape_ccare.json", "w") as f:
                     json.dump(re_scrape_results, f, indent=4, sort_keys=True)
         
-        POST_DATA['gender'] = ""
-        POST_DATA['speciality'] = ""
+        search_parameters.POST_DATA['gender'] = ""
+        search_parameters.POST_DATA['speciality'] = ""
 
 
-def gen_re_scrape_list(file_path = "ccare_scrape.json"):
+def gen_re_scrape_list(file_path="ccare_scrape.json"):
     """
     This function loops through the raw scrape results and checks which 
     provider code/ zip code combinations need to be re-scraped. 
