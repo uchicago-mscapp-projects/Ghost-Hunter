@@ -9,7 +9,7 @@ import plotly.express as px
 import urllib3
 import json
 import circlify
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import dash_bootstrap_components as dbc
 
 #import graph

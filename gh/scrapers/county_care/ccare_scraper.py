@@ -5,6 +5,7 @@ from .search_parameters import *
 import pathlib
 
 pathlib.Path(_file_).parent / "data/selected_columns.csv"
+#ccare_scrape.json 
 
 def scrape_ccare(start_over=False):
     """
@@ -16,6 +17,7 @@ def scrape_ccare(start_over=False):
     statrt_over(bool): A boolean parameter that specifies if the scrape should
     start from an empty dictionary, as opposed to building on an existing file.
     """
+    
     #This would start from an empty dictionary
     if start_over is True:
         ccare_scrape = {}
