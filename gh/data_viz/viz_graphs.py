@@ -15,7 +15,7 @@ def bar_graph_providertype_match(title, match_color, nonmatch_color):
         Returns (object): DCC Graph.
         """ 
         #Load data
-        df = merge_data_visualization
+        df = merge_data_visualization()
         data = get_match_providertype_data(df)
 
         #Create a figure
@@ -35,7 +35,7 @@ def bar_graph_providertype_prob_match(title, match_color):
     """ 
 
     #Load data
-    df = merge_data_visualization
+    df = merge_data_visualization()
     data = get_match_providertype_data(df)
 
     #Create a figure   
@@ -48,17 +48,18 @@ def bar_graph_providertype_prob_match(title, match_color):
 
 
 
-def zicode_choropleth_graph(df):
+def zicode_choropleth_graph():
     '''
     '''
-    df = get_match_zipcode_data(df)
+    df = merge_data_visualization()
+    data =  get_match_zipcode_data(df)
 
     #Illinois Zip code (gives the coordinates)
     url='https://raw.githubusercontent.com/OpenDataDE/State-zip-code-GeoJSON/master/il_illinois_zip_codes_geo.min.json'
     response = urllib3.request('GET',url)
     zipcodes = response.json()
 
-    fig = px.choropleth(df, 
+    fig = px.choropleth(data, 
                         geojson=zipcodes, 
                         locations='Zip Code', 
                         color='Prob Non-Match',

@@ -27,19 +27,16 @@ def create_card():
     Returns (dbc.Card): A Dash Card that will be information box. 
     """ 
 
-    prov_il = 1000
-    prov_medicaid = 500
-    prov_county_care = 100
-
     
     # https://www.census.gov/content/dam/Census/library/publications/2023/demo/p60-281.pdf
     usa_medicaid = "18.8%"
     # https://hfs.illinois.gov/info/factsfigures/program-enrollment/cook.html
     illinois_medicaid = "30%"
 
-    total_scrape = 100
-    total_match = "50%"
-    total_nonmatch = "50%"
+    total_ccare = 160,277
+    total_scrape = 67.943
+    total_match = "30%"
+    total_nonmatch = "70%"
 
 
     header_style = {"color": "#0092ca", 
@@ -55,21 +52,7 @@ def create_card():
             "text-align" : "center",
             "font-size": "1.5rem"}
 
-    card_content1 = [
-        dbc.CardHeader("TOTAL PROVIDERS", style=header_style),
-        dbc.CardBody(
-            [
-                html.P(f"Illinois {prov_il}", style=body_style, className="card-title"),
-                html.P(f"Accept Medicaid(Illinois) {prov_medicaid}", style=body_style,
-                    className="card-text",
-                ),
-                html.P(f"County Care (Medicaid) {prov_county_care}", style=body_style,
-                    className="card-text",
-                )
-            ]
-        ),
-    ]
-
+    
     card_content2 = [
         dbc.CardHeader("MEDICAID PATIENTES", style=header_style),
         dbc.CardBody(
@@ -87,6 +70,7 @@ def create_card():
         dbc.CardHeader("COUNTY CARE SCRAPE",style=header_style),
         dbc.CardBody(
             [
+                html.P(f"Possible results {total_ccare}", style=body_style, className="card-title"),
                 html.P(f"Total scrape {total_scrape}", style=body_style, className="card-title"),
                 html.P(f"Match {total_match}", style=body_style,
                     className="card-text",
@@ -102,7 +86,6 @@ def create_card():
         [
             dbc.Row(
                 [
-                    dbc.Col(dbc.Card(card_content1, color="#5dacbd", outline=True)),
                     dbc.Col(
                         dbc.Card(card_content2, color="#a7bcb9", outline=True)
                     ),
@@ -141,7 +124,7 @@ abstract = dcc.Markdown(abstract_text, style={"color": "#24527a",
 info_cards = create_card() 
 graph1 = bar_graph_providertype_match('Matches by Provider Type', '#9fd3c7', '#007cb9')
 graph2 = bar_graph_providertype_prob_match('Probability of Macth for Provider Type','#9fd3c7')
-graph3 = zicode_choropleth_graph(df)
+graph3 = zicode_choropleth_graph()
 
 title = html.H1(children='Ghost Hunter', 
             style={"color": "#24527a", 
@@ -171,4 +154,4 @@ app.layout = html.Div(children=[
 ])
 
 if __name__ == '__main__':
-    app.run_server(port=8050)
+    app.run_server(port=8060)
