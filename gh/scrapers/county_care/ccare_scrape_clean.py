@@ -25,7 +25,7 @@ def ccare_scrape_unpacker():
     Returns: Nothing. This function writes the output to 
     "ccare_results_clean.json."
     """
-#gh/scrapers/county_care/
+
     with open("ccare_scrape.json") as f:
         scrape_data = json.load(f)
     
