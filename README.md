@@ -12,18 +12,24 @@ A pervasive problem in the American Healthcare system is the existence of “gho
 
 ## Getting Started:
 
-python -m gh (Press CTRL+C to quit)
-
-URL http://127.0.0.1:8060/ 
 
 ## Using Ghost Hunter
 
-The main uses of Ghost Hunter are (1) to access the original dataset, "data_set_name", (2)
+The main uses of Ghost Hunter are (1) to access the original datasets, "merge.csv" and "scrap.csv", (2)
 to view the dashboard visualizations which depict trends in matches accross Illinois geography
 and specific health care provider types, and (3) to re-run the web-scrape and matching process
 we used to construt our data set.
 
-## Understanding "dataset name"
+## Merge and Scrap
+
+Merge.csv and Scrap.csv are two subsets of County Care's proivder network. Merge is the data that we were able to
+link with NPI numbers. While we have provided a limited number of variables in Merge that is because the first name, 
+last name, NPI number combination should allow researchers to easily link this data with external data. 
+
+Scrap.csv encompasses all of the unique providers that we were able to scrape from county care's website, after removing duplicates. Each row is a provider, not a person. Some providers are people (such as doctors, dentists, etc.) But some
+are health care companies such as hospital groups and long-term-care facilities. We recommend using the "type" column for
+additional clarity.
+
 
 ## Viewing Summary Visualizations
 
@@ -62,8 +68,6 @@ If possible, check your computer frequently in the event that the website doesn'
 a request is hanging for more than 3 minutes. County Care's website is slow, so Ghost Hunters is built to
 be re-run until all specified searches are complete.
 
-
-
 1) Open up your terminal in the directory where you want to save the Ghost-Hunter
 repository and run: ```git clone https://github.com/Jibbie17/Ghost-Hunter```
 
@@ -74,11 +78,32 @@ to ensure that all your pacakages are installed and your virtual environment is 
 the NPI monthly download file and the IMPACT database, are very large and cannot be stored in git. In addition, they
 both update regularly with the information of new doctors, so it is worth re-running the merge every couple of months.
 Before you open the terminal download the NPI monthly file [here](https://download.cms.gov/nppes/NPI_Files.html). You will need to click on the link that usually starts "Full Replacement Monthly NPI File" to get a zipped folder and then from that zipped folder you will want to copy the file titled "npidata_pfile_20050523-<LAST RELEASE>.csv", put it in folder titled
-"gh/data_compilation/data_input." AND BE SURE TO RENAME IT TO npi.csv. We have a .gitignore set up for this file, but its name changes every month. Then do the same with the [IMPACT database](https://ext2.hfs.illinois.gov/hfsindprovdirectory). 
+"gh/data_compilation/data_input." AND BE SURE TO RENAME IT TO npi.csv. We have a .gitignore set up for this file, but its name changes every month. Then DO THE SAME with the [IMPACT database](https://ext2.hfs.illinois.gov/hfsindprovdirectory). For that file we have our .gitignore set to impact.txt. If you change either file to something else, be sure to update the .gitignore.
 
-3. To launch the scraper, start in the root of the repository where you should see the folder "gh". From the terminal run:
+4) To launch the scraper, start in the root of the repository where you should see the folder "gh". From the terminal run:
     ```python -m gh.data_compilation ```
 Or, if you have not run poetry shell, you will need to run:
     ```poetry python -m gh.data_compilation```
+
+5) If this is not your first scrape you will be asked if you want to overwrite your previous
+scrape. You should see:
+
+"Data from the last scrape is saved at gh/data_compilation/scrapers/scraped_data/ccare_results_clean.json. 
+Would you like to overwrite this file? [y/n]"
+
+If so, we recommend that you answer n. If you answer y, the scraper will clean out your last file and 
+The scrape takes a long time, and is built such that each querry adds data to the same file, UNLESS you sepcify at the first prompt that you want to overwrite.
+
+6) You will then be asked if you want monitoring during the search. Specifically:
+
+"Would you like to see the scrape result appear live in your terminal? [y/n]"
+
+If you select yes, MONITORING, will be turned on and the scraper will provide intermittent
+progress updates to your terminal.
+
+7) Sit back, relax and let the computer do the work!
+
+
+
 
  

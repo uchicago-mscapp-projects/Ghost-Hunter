@@ -55,7 +55,7 @@ def clean_scrap(json_path, columns_path):
     )
     # Before we drop duplicate doctors, we count the unique search results so
     # that we can evaluate how our webscraper performed.
-    with open('data_output/total_retrieved_searches.json','w') as f:
+    with open('gh/data_compilation/data_output/total_retrieved_searches.json','w') as f:
         json.dump({"total_retrieved_searches":len(df)},f, indent=4)
     
     # Drop duplicates
