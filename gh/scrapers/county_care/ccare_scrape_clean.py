@@ -1,5 +1,5 @@
 import json
-from ccare_scraper import scrape_ccare, re_scrape
+from .ccare_scraper import scrape_ccare, re_scrape
 
 def scrape_to_merge(fresh = False):
     """

@@ -11,7 +11,7 @@ THRESHOLD = 0.7
 def match(npi, scrap, impact, selected_npi, selected_scrap):
     """
     Perform matching operations on scrap (CountyCare) dataset using oficial information
-    to identify health providers.
+    to identify health care providers.
 
     Parameters:
     - npi (DataFrame): DataFrame containing NPI data.
