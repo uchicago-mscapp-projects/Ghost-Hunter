@@ -9,6 +9,22 @@ COLUMNS_TO_MATCH = [
     "address",
 ]
 
+def match_scrap(scrap, columns):
+    """
+    Extract and match relevant columns from preprocessed scrap data.
+
+    Parameters:
+    - scrap (str): Path to the JSON file containing scrap data.
+    - columns (str): Path to the CSV file specifying selected columns.
+
+    Returns:
+    - DataFrame: Extracted and matched DataFrame with relevant columns from scrap data.
+    """
+    df = clean_scrap(scrap, columns)[COLUMNS_TO_MATCH]
+    df.dropna(inplace=True)
+    df.drop_duplicates(inplace=True)
+
+    return df
 
 def clean_scrap(json_path, columns_path):
     """
@@ -39,28 +55,10 @@ def clean_scrap(json_path, columns_path):
     )
     # Before we drop duplicate doctors, we count the unique search results so
     # that we can evaluate how our webscraper performed.
-    with open("data_output/total_retrieved_searches.json", "w") as f:
-        json.dump({"total_retrieved_searches": len(df)}, f, indent=4)
-
+    with open('data_output/total_retrieved_searches.json','w') as f:
+        json.dump({"total_retrieved_searches":len(df)},f, indent=4)
+    
     # Drop duplicates
-    df.drop_duplicates(inplace=True)
-
-    return df
-
-
-def match_scrap(scrap, columns):
-    """
-    Extract and match relevant columns from preprocessed scrap data.
-
-    Parameters:
-    - scrap (str): Path to the JSON file containing scrap data.
-    - columns (str): Path to the CSV file specifying selected columns.
-
-    Returns:
-    - DataFrame: Extracted and matched DataFrame with relevant columns from scrap data.
-    """
-    df = clean_scrap(scrap, columns)[COLUMNS_TO_MATCH]
-    df.dropna(inplace=True)
     df.drop_duplicates(inplace=True)
 
     return df
