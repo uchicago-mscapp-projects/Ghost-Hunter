@@ -29,6 +29,16 @@ we used to construt our data set.
 
 To view the dashboard visualizations run 
 
+1) Open up your terminal in the directory where you want to save the Ghost-Hunter
+repository and run:
+    git clone https://github.com/Jibbie17/Ghost-Hunter
+
+2) Run:
+    poetry install 
+and then
+    poetry shell
+to ensure that all your pacakages are installed and your virtual environment is working.
+
 ## Re-Running the Webscraping and Matching Process
 
 Provider networks chnage month to month as doctors and insurers evaluate
@@ -45,7 +55,15 @@ be re-run until all specified searches are complete.
 repository and run:
     git clone https://github.com/Jibbie17/Ghost-Hunter
 
-2) Run poetry install to 
+2) Run:
+    poetry install 
+and then
+    poetry shell
+to ensure that all your pacakages are installed and your virtual environment is working.
 
+3. To launch the scraper, start in the root of the repository where you should see the folder "gh". From the terminal run:
+    python -m gh.data_compilation
+Or, if you have not run poetry shell, you will need to run:
+    poetry python -m gh.data_compilation
 
  
