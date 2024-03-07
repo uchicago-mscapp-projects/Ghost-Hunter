@@ -17,7 +17,7 @@ from gh.data_viz.data_analysis import (
 from gh.data_viz.viz_graphs import (
     bar_graph_providertype_match,
     bar_graph_providertype_match_percentage,
-    nonmatch_zicode_choropleth_graph,
+    nonmatch_zipcode_choropleth_graph,
 )
 
 
@@ -25,11 +25,6 @@ def create_card():
     """
     Returns (dbc.Card): A Dash Card that will be information box.
     """
-
-    # https://www.census.gov/content/dam/Census/library/publications/2023/demo/p60-281.pdf
-    usa_medicaid = "18.8%"
-    # https://hfs.illinois.gov/info/factsfigures/program-enrollment/cook.html
-    illinois_medicaid = "30%"
 
     data = merge_data_visualization()
 
@@ -252,12 +247,12 @@ graph2 = bar_graph_providertype_match_percentage(
     data=providertype_data,
     match_color="#9fd3c7",
 )
-graph3 = nonmatch_zicode_choropleth_graph(
+graph3 = nonmatch_zipcode_choropleth_graph(
     data=zipcode_data,
     nonmatch_color="blues",
 )
 
-
+#Create the Dashboard 
 app.layout = html.Div(
     children=[project_title, 
               abstract, 

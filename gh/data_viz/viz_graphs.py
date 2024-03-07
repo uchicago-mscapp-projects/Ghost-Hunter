@@ -53,7 +53,7 @@ def bar_graph_providertype_match_percentage(data, match_color):
     return dcc.Graph(id=f"percentage_match_providertype", figure=fig)
 
 
-def nonmatch_zicode_choropleth_graph(data, nonmatch_color):
+def nonmatch_zipcode_choropleth_graph(data, nonmatch_color):
     """
     Create a choropleth graph with all the zip code of the providers address and
     color with the scale for nonmatches percentage.
