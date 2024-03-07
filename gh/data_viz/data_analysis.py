@@ -1,6 +1,7 @@
 import pandas as pd
 
 
+
 def merge_data_visualization():
     """
     Generates the dataframe used for visualizations
@@ -54,8 +55,8 @@ def get_matches_percentage_data(df, analysis_column):
         # Match / Non-Match (if have an 'npi' it matches)
         num_match = df_provider["npi"].count()
         num_nonmatch = df_provider["npi"].isna().sum()
-        percentage_match = num_match / total
-        percentage_nonmatch = num_nonmatch / total
+        percentage_match = ((num_match / total)*100).round(2)
+        percentage_nonmatch = ((num_nonmatch / total)*100).round(2)
 
         list_of_tuples.append(
             (

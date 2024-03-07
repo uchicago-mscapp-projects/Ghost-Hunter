@@ -15,26 +15,7 @@ python -m gh (Press CTRL+C to quit)
 
 URL http://127.0.0.1:8060/ 
 
-## Matching Data: 
- 
-
-**NPI Registry**
-
-Description: This is a dataset of National Provider Identification Numbers. All health care providers need to apply for one in order to bill.  
-
-**Data access:** 
-
-API: https://npiregistry.cms.hhs.gov/api-page  
-
-Downloadable Data: https://www.cms.gov/medicare/regulations-guidance/administrative-simplification/data-dissemination  
-
-Description: https://www.cms.gov/outreach-and-education/medicare-learning-network-mln/mlnproducts/downloads/npi-what-you-need-to-know.pdf  
-
-Illinois Medicaid Health Insurance Providers: 
-
-Overview: https://hfs.illinois.gov/medicalclients/managedcare.html  
-
-Scrapable Data: 
+## 
 
 Aetna (Best option): https://www.aetnabetterhealth.com/Illinois-medicaid/find-provider   
 

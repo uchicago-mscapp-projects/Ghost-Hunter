@@ -70,10 +70,10 @@ def create_card():
     }
 
     card_content2 = [
-        dbc.CardHeader("COUNTY CARES WEB", style=header_style),
+        dbc.CardHeader("COUNTY CARE WEB", style=header_style),
         dbc.CardBody(
             [
-                html.P(f"#Search results {total_ccare}", style=body_style, className="card-title"),
+                html.P(f"#Possible Search Results {total_ccare}", style=body_style, className="card-title"),
                 html.P(
                     f"#Primary Care Providers {primary_care}",
                     style=body_style,
@@ -141,14 +141,15 @@ project_title = html.H1(
         "font-family": "Roboto",
         "text-align": "center",
         "font-size": "5rem",
+        "height": "15vh"
     },
 )
 
 abstract_text = """# Project Abstract
 
-Our application audits the medicaid network of County Care, one of Illinois five 
-Medicaid Managed Care Organizations to see how what percentage of [County Care’s](https://countycare.valence.care/member/#findAProvider) 
-network can be independently verified. First, we scrape County Care’s find a 
+Our application audits the **medicaid network of County Care**, one of Illinois five 
+**Medicaid Managed Care Organizations** to see how what percentage of [County Care’s](https://countycare.valence.care/member/#findAProvider) 
+network **can be independently verified**. First, we scrape County Care’s find a 
 provider tool  to construct a database which presents a sample of their health care service provider 
 network.  Second we attempt to locate each provider listed in County Care’s network 
 in the State of Illinois’ [IMPACT data](https://ext2.hfs.illinois.gov/hfsindprovdirectory/) 
@@ -176,7 +177,7 @@ abstract = dcc.Markdown(
 info_cards = create_card()
 
 graphs_title = html.H3(
-    children="County Care Scrape",
+    children="County Care Scrape Analysis",
     style={
         "color": "#007cb9",
         "font-weight": "bold",
@@ -184,6 +185,54 @@ graphs_title = html.H3(
         "font-family": "Roboto",
         "text-align": "center",
         "font-size": "3rem",
+        "height": "15vh",
+        "justify-content": "center",
+        "align-items": "center"
+    },
+)
+
+graph1_title = html.H4(
+    children="Total Matches and Non-Matches by each Provider Type",
+    style={
+        "color": "#142d4c",
+        "font-weight": "bold",
+        "background-color": "white",
+        "font-family": "Roboto",
+        "text-align": "center",
+        "font-size": "2rem",
+        "height": "10vh",
+        "justify-content": "center",
+        "align-items": "center"
+    },
+)
+
+graph2_title = html.H4(
+    children="Percentage of Matches by each Provider Type",
+    style={
+        "color": "#142d4c",
+        "font-weight": "bold",
+        "background-color": "white",
+        "font-family": "Roboto",
+        "text-align": "center",
+        "font-size": "2rem",
+        "height": "10vh",
+        "justify-content": "center",
+        "align-items": "center"
+    },
+)
+
+graph3_title = html.H4(
+    children="Choropleth graph with the percentage of Non-Matches by Zip Code",
+    style={
+        "color": "#142d4c",
+        "font-weight": "bold",
+        "background-color": "white",
+        "font-family": "Roboto",
+        "text-align": "center",
+        "font-size": "2rem",
+        "height": "10vh",
+        "justify-content": "center",
+        "align-items": "center"
     },
 )
 
@@ -196,24 +245,30 @@ zipcode_data = get_matches_percentage_data(df, 'zip_code')
 # Importing graphs
 graph1 = bar_graph_providertype_match(
     data=providertype_data,
-    title="Total Matches and Non-Matches by each Provider Type",
     match_color="#9fd3c7",
     nonmatch_color="#007cb9",
 )
 graph2 = bar_graph_providertype_match_percentage(
     data=providertype_data,
-    title="Percentage of Matches by each Provider Type",
     match_color="#9fd3c7",
 )
 graph3 = nonmatch_zicode_choropleth_graph(
     data=zipcode_data,
-    title="Choropleth graph with the percentage of Non-Matches by Zip Code",
     nonmatch_color="blues",
 )
 
 
 app.layout = html.Div(
-    children=[project_title, abstract, info_cards, graphs_title, graph1, graph2, graph3]
+    children=[project_title, 
+              abstract, 
+              info_cards, 
+              graphs_title, 
+              graph1_title,
+              graph1, 
+              graph2_title,
+              graph2,
+              graph3_title, 
+              graph3]
 )
 
 if __name__ == "__main__":

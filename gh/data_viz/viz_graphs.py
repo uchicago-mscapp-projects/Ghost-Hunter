@@ -4,7 +4,7 @@ import plotly.express as px
 import urllib3
 
 
-def bar_graph_providertype_match(data, title, match_color, nonmatch_color):
+def bar_graph_providertype_match(data, match_color, nonmatch_color):
     """
     Create a graph bar with the total match and non-match for each provider type.
 
@@ -21,15 +21,15 @@ def bar_graph_providertype_match(data, title, match_color, nonmatch_color):
         data,
         x=['Match', 'Non-Match'],
         y='type',
-        title=title,
         color_discrete_map={'Match': match_color, 'Non-Match': nonmatch_color},
         orientation="h",
     )
+    fig.update_xaxes(tickformat=",")
 
     return dcc.Graph(id=f"total_match_providertype", figure=fig)
 
 
-def bar_graph_providertype_match_percentage(data, title, match_color):
+def bar_graph_providertype_match_percentage(data, match_color):
     """
     Create a graph bar with the percentage matches for each provider type.
 
@@ -45,15 +45,15 @@ def bar_graph_providertype_match_percentage(data, title, match_color):
         data,
         x='type',
         y='Percentage Match',
-        title=title,
         color_discrete_sequence=[match_color] * len(data),
-        range_y=(0, 1),
+        range_y=(0, 100), text_auto=True
     )
-
+    fig.update_xaxes(tickformat=".2%")
+    
     return dcc.Graph(id=f"percentage_match_providertype", figure=fig)
 
 
-def nonmatch_zicode_choropleth_graph(data, title, nonmatch_color):
+def nonmatch_zicode_choropleth_graph(data, nonmatch_color):
     """
     Create a choropleth graph with all the zip code of the providers address and
     color with the scale for nonmatches percentage.
@@ -76,10 +76,9 @@ def nonmatch_zicode_choropleth_graph(data, title, nonmatch_color):
         data,
         geojson = zipcodes,
         locations = 'zip_code',
-        title = title,
         color='Percentage Non-Match',
         color_continuous_scale = nonmatch_color,
-        range_color=(0, 1),
+        range_color=(0, 100),
         featureidkey="properties.ZCTA5CE10",
         scope="usa",
         labels={"Cluster": "Cluster_Category"},
