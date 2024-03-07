@@ -1,4 +1,3 @@
-# import libraries
 from dash import dcc
 import plotly.express as px
 import urllib3
