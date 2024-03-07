@@ -52,18 +52,14 @@ a request is hanging for more than 3 minutes. County Care's website is slow, so 
 be re-run until all specified searches are complete.
 
 1) Open up your terminal in the directory where you want to save the Ghost-Hunter
-repository and run:
-    git clone https://github.com/Jibbie17/Ghost-Hunter
+repository and run: ```git clone https://github.com/Jibbie17/Ghost-Hunter```
 
-2) Run:
-    poetry install 
-and then
-    poetry shell
+2) Run: ``` poetry install ``` and then ``` poetry shell ```
 to ensure that all your pacakages are installed and your virtual environment is working.
 
 3. To launch the scraper, start in the root of the repository where you should see the folder "gh". From the terminal run:
-    python -m gh.data_compilation
+    ```python -m gh.data_compilation ```
 Or, if you have not run poetry shell, you will need to run:
-    poetry python -m gh.data_compilation
+    ```poetry python -m gh.data_compilation```
 
  

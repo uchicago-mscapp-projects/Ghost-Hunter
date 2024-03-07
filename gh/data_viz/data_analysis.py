@@ -9,8 +9,8 @@ def merge_data_visualization():
     Returns: dataframe
     """
     # Load data from linkage
-    df_merge = pd.read_csv("gh/merge.csv")
-    df_scrap = pd.read_csv("gh/scrap.csv")
+    df_merge = pd.read_csv("gh/data_compilation/data_output/merge.csv")
+    df_scrap = pd.read_csv("gh/data_compilation/data_output/scrap.csv")
 
     # Merge the df_merge and the df_scrape data with 'first_name','last_name','phone_number'
     df = pd.merge(
