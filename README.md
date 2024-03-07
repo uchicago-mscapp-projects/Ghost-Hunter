@@ -27,17 +27,28 @@ we used to construt our data set.
 
 ## Viewing Summary Visualizations
 
-To view the dashboard visualizations run 
+We created a simple set of visualizations to understand how our scraper performed
+and to check if there was any obvious variation in provider matches (i.e.ghosts/non-ghosts).
+To view these, do the following:
 
-1) Open up your terminal in the directory where you want to save the Ghost-Hunter
+1) If you haven't already, open up your terminal to the directory where you want to save the Ghost-Hunter
 repository and run:
-    git clone https://github.com/Jibbie17/Ghost-Hunter
+    ```git clone https://github.com/Jibbie17/Ghost-Hunter```
 
 2) Run:
-    poetry install 
+    ```poetry install ```
 and then
-    poetry shell
+    ```poetry shell```
 to ensure that all your pacakages are installed and your virtual environment is working.
+
+3) In order to create view a unique link where our visualizations are hosted navigate to the root of your
+repository where "gh should be the only folder. Then run:
+```python -m gh```
+If you haven't activated your poetry shell you might need to run:
+```poetry python -m gh```.
+You should get a response that looks something like:
+```Dash is running on http://###.#.#.##```
+You might also get a large red warning about it being a development server. Don't worry about
 
 ## Re-Running the Webscraping and Matching Process
 
@@ -51,11 +62,19 @@ If possible, check your computer frequently in the event that the website doesn'
 a request is hanging for more than 3 minutes. County Care's website is slow, so Ghost Hunters is built to
 be re-run until all specified searches are complete.
 
+
+
 1) Open up your terminal in the directory where you want to save the Ghost-Hunter
 repository and run: ```git clone https://github.com/Jibbie17/Ghost-Hunter```
 
 2) Run: ``` poetry install ``` and then ``` poetry shell ```
 to ensure that all your pacakages are installed and your virtual environment is working.
+
+3) Before you launch the scraper you should make sure you have the write data files. The two data files we use on matching,
+the NPI monthly download file and the IMPACT database, are very large and cannot be stored in git. In addition, they
+both update regularly with the information of new doctors, so it is worth re-running the merge every couple of months.
+Before you open the terminal download the NPI monthly file [here](https://download.cms.gov/nppes/NPI_Files.html). You will need to click on the link that usually starts "Full Replacement Monthly NPI File" to get a zipped folder and then from that zipped folder you will want to copy the file titled "npidata_pfile_20050523-<LAST RELEASE>.csv", put it in folder titled
+"gh/data_compilation/data_input." AND BE SURE TO RENAME IT TO npi.csv. We have a .gitignore set up for this file, but its name changes every month. Then do the same with the [IMPACT database](https://ext2.hfs.illinois.gov/hfsindprovdirectory). 
 
 3. To launch the scraper, start in the root of the repository where you should see the folder "gh". From the terminal run:
     ```python -m gh.data_compilation ```
