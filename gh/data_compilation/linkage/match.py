@@ -1,8 +1,8 @@
 import pandas as pd
 import jellyfish
-from clean.clean_impact import clean_impact
-from clean.clean_npi import match_npi
-from clean.clean_scrap import match_scrap
+from gh.data_compilation.clean.clean_impact import clean_impact
+from gh.data_compilation.clean.clean_npi import match_npi
+from gh.data_compilation.clean.clean_scrap import match_scrap
 
 COLUMNS_IMPACT = ["npi", "first_name", "last_name", "zip_code", "address"]
 
