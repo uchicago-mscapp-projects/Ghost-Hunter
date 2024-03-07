@@ -14,11 +14,11 @@ def match(npi, scrap, impact, selected_npi, selected_scrap):
     to identify health care providers.
 
     Parameters:
-    - npi (DataFrame): DataFrame containing NPI data.
-    - scrap (DataFrame): DataFrame containing scrap data.
-    - impact (DataFrame): DataFrame containing impact data.
-    - selected_npi (DataFrame): DataFrame with selected columns in NPI data.
-    - selected_scrap (DataFrame): DataFrame with selected columns in scrap data.
+    - npi (string): path to the DataFrame containing NPI data.
+    - scrap (string): path to the DataFrame containing scrap data.
+    - impact (string): path to the DataFrame containing impact data.
+    - selected_npi (string): path to the DataFrame with selected columns in NPI data.
+    - selected_scrap (string): path to the DataFrame with selected columns in scrap data.
 
     Returns:
     - DataFrame: Cleaned and matched DataFrame with the results.
@@ -47,7 +47,7 @@ def match(npi, scrap, impact, selected_npi, selected_scrap):
 def first_approach(df_scrap,df_npi):
     """
     Perform a primary matching approach to fill missing 'npi' values in df_scrap 
-    using df_npi based on exact matches of last name and phone number.
+    using npi data frame based on exact last name and phone number matches.
 
     Parameters:
     - df_scrap (DataFrame): Scrap DataFrame.
@@ -66,7 +66,7 @@ def first_approach(df_scrap,df_npi):
 def second_approach(df_scrap,df_impact):
     """
     Perform a secondary matching approach to fill missing 'npi' values in df_scrap 
-    with df_impact, exact zip codes, last name, and similar first name.
+    with impact data frame, exact zip codes, last name, and similar first name.
 
     Parameters:
     - df_scrap (DataFrame): Scrap DataFrame containing 'npi' values to be filled.
@@ -106,7 +106,7 @@ def second_approach(df_scrap,df_impact):
 def third_approach(df_scrap,df_impact):
     """
     Perform a tertiary matching approach to fill missing 'npi' values in df_scrap 
-    with df_impact, subsetting by zip code and looking for similarities in first
+    with impact data frame, subsetting by zip code and looking for similarities in first
     name, last name, and address. 
 
     Parameters:
