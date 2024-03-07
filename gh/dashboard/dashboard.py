@@ -28,23 +28,12 @@ def create_card():
 
     data = merge_data_visualization()
 
-    
-# ]]⁠Code
-#     - Total unique Primary Care Providers
-#     - Total unique specialists
-# •⁠  ⁠Paula 
-#     - Total numbers or searches / total
-#     - Write up on the merge
-
     #County Care https://countycare.com/
     total_ccare = "160,277"
     primary_care = "6,600"
     specialist = "26,000"
 
-#     - Total unique Primary Care Providers
-#     - Total unique specialists
-
-    #scrape
+    #Scrape
     total_scrape = len(data)
     match_percentage = (data["npi"].count()/len(data)*100).round(2)
     nonmatch_percentage = (data["npi"].isna().sum()/len(data)*100).round(2)
@@ -64,7 +53,7 @@ def create_card():
         "font-size": "1.5rem",
     }
 
-    card_content2 = [
+    card_content1 = [
         dbc.CardHeader("COUNTY CARE WEB", style=header_style),
         dbc.CardBody(
             [
@@ -83,7 +72,7 @@ def create_card():
         ),
     ]
 
-    card_content3 = [
+    card_content2 = [
         dbc.CardHeader("SCRAPE", style=header_style),
         dbc.CardBody(
             [
@@ -110,8 +99,8 @@ def create_card():
         [
             dbc.Row(
                 [
-                    dbc.Col(dbc.Card(card_content2, color="#007cb9", outline=True)),
-                    dbc.Col(dbc.Card(card_content3, color="#9fd3c7", outline=True)),
+                    dbc.Col(dbc.Card(card_content1, color="#007cb9", outline=True)),
+                    dbc.Col(dbc.Card(card_content2, color="#9fd3c7", outline=True)),
                 ],
                 className="mb-4",
             )
@@ -120,7 +109,7 @@ def create_card():
 
     return cards
 
-
+#Create the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 """
@@ -252,7 +241,7 @@ graph3 = nonmatch_zipcode_choropleth_graph(
     nonmatch_color="blues",
 )
 
-#Create the Dashboard 
+#Create the Dashboard Layout
 app.layout = html.Div(
     children=[project_title, 
               abstract, 
