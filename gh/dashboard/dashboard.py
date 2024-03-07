@@ -35,6 +35,8 @@ def create_card():
 
     #Scrape
     total_scrape = len(data)
+    primary_scrape = len(data[data['type']== 'Primary Care Doctors/Nurses'])
+    specialist_scrape = len(data[data['type']== 'Medical Specialists'])
     match_percentage = (data["npi"].count()/len(data)*100).round(2)
     nonmatch_percentage = (data["npi"].isna().sum()/len(data)*100).round(2)
 
@@ -77,7 +79,11 @@ def create_card():
         dbc.CardBody(
             [
                 html.P(
-                    f"#Unique Providers {total_scrape}",
+                    f"#Primary Care Providers {primary_scrape:,}",
+                    style=body_style,
+                    className="card-title",
+                ),html.P(
+                    f"#Specialist {specialist_scrape:,}",
                     style=body_style,
                     className="card-title",
                 ),
