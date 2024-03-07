@@ -36,8 +36,10 @@ def clean_scrap(json_path, columns_path):
             lambda x: isinstance(x, str) and (len(x) != 10 or len(set(x)) == 1), None
         )
     )
-    with open('total.json','w') as f:
-        json.dumps(len(df),f)
+    # Before we drop duplicate doctors, we count the unique search results so
+    # that we can evaluate how our webscraper performed.
+    with open('data_output/total_retrieved_searches.json','w') as f:
+        json.dump({"total_retrieved_searches":len(df)},f, indent=4)
     
     # Drop duplicates
     df.drop_duplicates(inplace=True)

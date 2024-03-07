@@ -7,7 +7,8 @@ Gabriel Barrett, Magdalena Barros, Paula Cadena
 
 ## Project Abstract
 
-A pervasive problem in the American Healthcare system is the existence of “ghost networks.” These are lists of providers that a health insurance plan falsely present to health care consumers as “in-network.” This project will attempt to use web scraping to partially audit the in-network provider list of one of Illinois Medicaid plans. We will scrape the public page of one of the insurance plans for the names, phone numbers, business addresses and National Provider Identification (NPI) numbers for each physician listed as in-network. Depending on the size of the data we may narrow the focus to Licensed Counselors who provide therapy since this problem is particularly pernicious in behavioral health. We will use these variables to identify these providers in the NPI enumeration database, which includes additional information on each provider, particularly their license number. We will then use the license number in tandem with Illinois’ license number validation tool to validate whether the provider's license is current and whether the contact information the insurer lists is accurate. We are considering other validation strategies such as checking phone numbers against the white pages and, in the case of counselors, checking that they list themselves as in-network on public websites such as APA’s find a therapist tool. We will use this data to create visualizations that display their percentage of physicians for each specialty that we can validate are accurately presented by the Illinois Medicaid plan and by each validation metric.  
+A pervasive problem in the American Healthcare system is the existence of “ghost networks.” These are lists of providers that a health insurance plan falsely present to health care consumers as “in-network.” Ghost Hunter is an application which audits the provider network of County Care, one of Illinois five Medicaid Managed Care Organizations. The goal is to see how what percentage of County Care’s network can be independently verified. First, we scraped County Care’s [find a provider](https://countycare.valence.care/member/#findAProvider) intermittently from February 16th until March 6th, 2024 to construct an original sample database of their health care service provider network.  Second, we attempt to verify that each located provider is accurately represented by matching them either in the State of Illinois’ [IMPACT database](https://ext2.hfs.illinois.gov/hfsindprovdirectory) or in the [National NPI Registry](https://www.cms.gov/medicare/regulations-guidance/administrative-simplification/data-dissemination). IMPACT is a state database that tracks all providers approved to bill Illinois Medicaid. If no trace of a provider exists in IMPACT, the provider is not eligible to treat patients on Medicaid. The NPI registry is a registry of all individual or corporate entities that need to bill health insurance. Matching on the NPI is important as a way to verify a provider’s contact information and residence in Illinois as well as a source for future researchers as NPI numbers are very close to unique identifiers in the health care space. From this analysis we estimate groups of providers that while listed in County Care’s directory are not actually seeing or billing Medicaid patients, and whose presence in County Care’s directory is misleading to patients and inflates the strength of their network. Our initial match percentages reflect the difficulty of linking records with inconsistent identifiers, but we hope that this data can be of use to us and future researchers examining health insurance network adequacy.
+
 
 ## Getting Started:
 
@@ -15,46 +16,35 @@ python -m gh (Press CTRL+C to quit)
 
 URL http://127.0.0.1:8060/ 
 
-## 
+## Using Ghost Hunter
 
-Aetna (Best option): https://www.aetnabetterhealth.com/Illinois-medicaid/find-provider   
+The main uses of Ghost Hunter are (1) to access the original dataset, "data_set_name", (2)
+to view the dashboard visualizations which depict trends in matches accross Illinois geography
+and specific health care provider types, and (3) to re-run the web-scrape and matching process
+we used to construt our data set.
 
-Blue Cross Blue Shield: https://my.providerfinderonline.com/?ci=il-med-cchp&network_id=11152019&geo_location=41.780399999999986,-87.6027&locale=en  
+## Understanding "dataset name"
 
-**County Care** 
+## Viewing Summary Visualizations
 
-https://countycare.valence.care/member/#findAProvider
+To view the dashboard visualizations run 
 
-**Molina** 
+## Re-Running the Webscraping and Matching Process
 
-Illinois License Look-Up 
+    Provider networks chnage month to month as doctors and insurers evaluate
+their relationships in relation to the market. Depending on the permanance of
+County Care's Website, Ghost Hunter is a useful tool for getting point source infromation
+about the size and strength of County Care's provider Network. Before using the web scraper,
+make sure that your computational needs are minimal and that you are able to leave your computer alone
+and connected to a power source. The previous web scrape combined took approximately 24 hours to complete.
+If possible, check your computer frequently in the event that the website doesn't answer the scraper or 
+a request is hanging for more than 3 minutes. County Care's website is slow, so Ghost Hunters is built to
+be re-run until all specified searches are complete.
 
-Overview on counselor licenses in Illionois: https://www.thechicagoschool.edu/insight/career-development/difference-lpc-lcpc-licensing-illinois/#:~:text=According%20to%20the%20Illinois%20General,%2C%20substance%20abuse%2C%20and%20more.  
+1) Open up your terminal in the directory where you want to save the Ghost-Hunter
+repository and run: git clone https://github.com/Jibbie17/Ghost-Hunter
 
-Bulk Data Lookup: https://idfpr.illinois.gov/licenselookup/bulklookup.html  
+2)_ Run poetry install to 
 
-Data (with Captcha): https://www.illinois.gov/services/service.professional-license-look-up.html  
-
-Physician Data for Researchers: https://www.ilsos.gov/departments/archives/databases/physearch.html  
-
-APA Psychologist Locator 
-
-Overview: The American Psychology Association’s Portal to help patients find therapists. 
-
-Data: https://locator.apa.org/results/1/60615/25/  
-
-National Register of Psychologists 
-
-https://www.findapsychologist.org/  
-
- 
-
- 
-
-**How can we validate providers?** 
-
-Requirements for Illinois Medicaid Providers 
-
-Source: https://hfs.illinois.gov/content/dam/soi/en/web/hfs/sitecollectiondocuments/Chapter100GeneralHandbook.pdf  
 
  

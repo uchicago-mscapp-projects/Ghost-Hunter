@@ -1,12 +1,13 @@
 import googlemaps
 from datetime import datetime
-import requests
 import json
 
 API_KEY = ### INSERT YOUR GOOGLE MAPS API KEY HERE ###
 
 
-
+# This files was used to generate the lattitude and longitude coordinates
+# stored in cood_county_coordinates_zips.json. Those coordinates
+# are a necessary ingredient of the post made to the county care website.
 
 def gen_zip_list():
     """

@@ -1,6 +1,6 @@
 import pathlib
-from clean.clean_scrap import clean_scrap
-from linkage.match import match
+from .clean_scrap import clean_scrap
+from .match import match
 
 selected_npi = pathlib.Path(__file__).parent / "selected_columns.csv"
 selected_scrap = pathlib.Path(__file__).parent / "selected_columns_s.csv"
