@@ -2,6 +2,16 @@ import pandas as pd
 
 
 def clean_impact(data):
+    """
+    Clean and transform raw impact text data into a structured DataFrame.
+
+    Parameters:
+    - data (str): Path to the raw impact text file.
+
+    Returns:
+    - DataFrame: Cleaned and transformed DataFrame with columns:
+        'npi', 'last_name', 'first_name', 'address', 'city', 'state', 'zip_code', 'speciality'.
+    """
     data_list = []
     record = {"npi": None, "name": None, "address": None, "speciality": []}
 
