@@ -9,6 +9,7 @@ COLUMNS_TO_MATCH = [
     "address",
 ]
 
+
 def clean_scrap(json_path, columns_path):
     """
     Clean and preprocess scrap data (CountyCare) from a JSON file based on selected columns.
@@ -38,13 +39,14 @@ def clean_scrap(json_path, columns_path):
     )
     # Before we drop duplicate doctors, we count the unique search results so
     # that we can evaluate how our webscraper performed.
-    with open('data_output/total_retrieved_searches.json','w') as f:
-        json.dump({"total_retrieved_searches":len(df)},f, indent=4)
-    
+    with open("data_output/total_retrieved_searches.json", "w") as f:
+        json.dump({"total_retrieved_searches": len(df)}, f, indent=4)
+
     # Drop duplicates
     df.drop_duplicates(inplace=True)
 
     return df
+
 
 def match_scrap(scrap, columns):
     """

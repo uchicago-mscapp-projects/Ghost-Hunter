@@ -66,14 +66,14 @@ def match_npi(csv_path, columns_path):
 
     df = pd.melt(
         df,
-        id_vars = COLUMNS_TO_KEEP,
-        value_vars = ["phone_number1", "phone_number2", "phone_number"],
-        value_name = "unique_phone_number",
+        id_vars=COLUMNS_TO_KEEP,
+        value_vars=["phone_number1", "phone_number2", "phone_number"],
+        value_name="unique_phone_number",
     )
 
-    df.rename(columns = {"unique_phone_number": "phone_number"}, inplace = True)
-    df.drop(columns = ["variable"], inplace = True)
-    df.dropna(inplace = True)
-    df.drop_duplicates(inplace = True)
+    df.rename(columns={"unique_phone_number": "phone_number"}, inplace=True)
+    df.drop(columns=["variable"], inplace=True)
+    df.dropna(inplace=True)
+    df.drop_duplicates(inplace=True)
 
     return df

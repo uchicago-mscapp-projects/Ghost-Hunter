@@ -31,7 +31,7 @@ To view the dashboard visualizations run
 
 ## Re-Running the Webscraping and Matching Process
 
-    Provider networks chnage month to month as doctors and insurers evaluate
+Provider networks chnage month to month as doctors and insurers evaluate
 their relationships in relation to the market. Depending on the permanance of
 County Care's Website, Ghost Hunter is a useful tool for getting point source infromation
 about the size and strength of County Care's provider Network. Before using the web scraper,
@@ -42,9 +42,10 @@ a request is hanging for more than 3 minutes. County Care's website is slow, so 
 be re-run until all specified searches are complete.
 
 1) Open up your terminal in the directory where you want to save the Ghost-Hunter
-repository and run: git clone https://github.com/Jibbie17/Ghost-Hunter
+repository and run:
+    git clone https://github.com/Jibbie17/Ghost-Hunter
 
-2)_ Run poetry install to 
+2) Run poetry install to 
 
 
  

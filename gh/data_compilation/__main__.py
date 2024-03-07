@@ -16,25 +16,24 @@ if __name__ == "__main__":
             we will start fresh. [y/n]"""
         )
         if input().lower == "y":
-            fresh = False
+            FRESH = False
         else:
             """Please be advised that a full scrape can take as long as 24 hours
             to run. Are you sure you want to proceede and overwrite the last save?
             """
             if input().lower == "y":
-                fresh = True
+                FRESH = True
+    print(
+        """Please keep you computer plugged into a power source and connected to the internet.
+            If possible check every four hours to ensure
+            that the scrape has not been interrupted. Would you like to see the scrape 
+            result appear live in your terminal? [y/n]"""
+    )
+    if input().lower == "y":
+        MONITORING = True
+    else:
+        MONITORING = False
 
-        print(
-            """Please keep you computer plugged into a power source and connected to the internet.
-               If possible check every four hours to ensure
-               that the scrape has not been interrupted. Would you like to see the scrape 
-               result appear live in your terminal? [y/n]"""
-        )
-        if input().lower == "y":
-            monitoring = True
-        else:
-            monitoring = False
-
-    scrape_to_merge(fresh=True, monitoring=monitoring)
+    scrape_to_merge(fresh=True, monitoring=MONITORING)
 
     
