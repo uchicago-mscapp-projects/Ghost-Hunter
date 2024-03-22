@@ -37,6 +37,9 @@ def clean_scrap(json_path, columns_path):
     Returns:
     - DataFrame: Cleaned and preprocessed DataFrame with selected columns and standardized phone numbers.
     """
+    # Before we clean the data we report how many unique search results we retrieved.
+    count_search_results(json_path)
+
     with open(json_path, "r") as file:
         data = json.load(file)
     selected_columns = pd.read_csv(columns_path)
@@ -53,12 +56,19 @@ def clean_scrap(json_path, columns_path):
             lambda x: isinstance(x, str) and (len(x) != 10 or len(set(x)) == 1), None
         )
     )
-    # Before we drop duplicate doctors, we count the unique search results so
-    # that we can evaluate how our webscraper performed.
-    with open('gh/data_compilation/data_output/total_retrieved_searches.json','w') as f:
-        json.dump({"total_retrieved_searches":len(df)},f, indent=4)
-    
     # Drop duplicates
     df.drop_duplicates(inplace=True)
 
     return df
+
+
+def count_search_results(json_path):
+    """
+    This function counts the unique search results captured by the scrape.
+    """
+    data = json.load(json_path)
+    sr = pd.DataFrame(data)
+    sr = sr.drop('DISTANCE', axis=1)
+    sr.drop_duplicates(inplace=True)
+    with open('gh/data_compilation/data_output/total_retrieved_searches.json','w') as f:
+        json.dump({"total_retrieved_searches":len(sr)},f, indent=4)
