@@ -7,7 +7,7 @@ Gabriel Barrett, Magdalena Barros, Paula Cadena
 
 ## Project Abstract
 
-A pervasive problem in the American Healthcare system is the existence of “ghost networks.” These are lists of providers that a health insurance plan falsely present to health care consumers as “in-network.” Ghost Hunter is an application which audits the provider network of County Care, one of Illinois five Medicaid Managed Care Organizations. The goal is to see how what percentage of County Care’s network can be independently verified. First, we scraped County Care’s [find a provider](https://countycare.valence.care/member/#findAProvider) intermittently from February 16th until March 6th, 2024 to construct an original sample database of their health care service provider network.  Second, we attempt to verify that each located provider is accurately represented by matching them either in the State of Illinois’ [IMPACT database](https://ext2.hfs.illinois.gov/hfsindprovdirectory) or in the [National NPI Registry](https://www.cms.gov/medicare/regulations-guidance/administrative-simplification/data-dissemination). IMPACT is a state database that tracks all providers approved to bill Illinois Medicaid. If no trace of a provider exists in IMPACT, the provider is not eligible to treat patients on Medicaid. The NPI registry is a registry of all individual or corporate entities that need to bill health insurance. Matching on the NPI is important as a way to verify a provider’s contact information and residence in Illinois as well as a source for future researchers as NPI numbers are very close to unique identifiers in the health care space. From this analysis we estimate groups of providers that while listed in County Care’s directory are not actually seeing or billing Medicaid patients, and whose presence in County Care’s directory is misleading to patients and inflates the strength of their network. Our initial match percentages reflect the difficulty of linking records with inconsistent identifiers, but we hope that this data can be of use to us and future researchers examining health insurance network adequacy.
+A pervasive problem in the American Healthcare system is the existence of “ghost networks.” These are lists of providers that a health insurance plan falsely presents to healthcare consumers as “in-network.” Ghost Hunter is an application that audits the provider network of County Care, one of Illinois five Medicaid Managed Care Organizations. The goal is to see how what percentage of County Care’s network can be independently verified. First, we scraped County Care’s [find a provider](https://countycare.valence.care/member/#findAProvider) intermittently from February 16th until March 6th, 2024 to construct an original sample database of their healthcare service provider network.  Second, we attempt to verify that each located provider is accurately represented by matching them either in the State of Illinois’ [IMPACT database](https://ext2.hfs.illinois.gov/hfsindprovdirectory) or in the [National NPI Registry](https://www.cms.gov/medicare/regulations-guidance/administrative-simplification/data-dissemination). IMPACT is a state database that tracks all providers approved to bill Illinois Medicaid. If no trace of a provider exists in IMPACT, the provider is not eligible to treat patients on Medicaid. The NPI registry is a registry of all individual or corporate entities that need to bill health insurance. Matching on the NPI is important as a way to verify a provider’s contact information and residence in Illinois, as well as a source for future researchers as NPI numbers, are very close to unique identifiers in the healthcare space. From this analysis, we estimate groups of providers that while listed in County Care’s directory are not actually seeing or billing Medicaid patients, and whose presence in County Care’s directory is misleading to patients and inflates the strength of their network. Our initial match percentages reflect the difficulty of linking records with inconsistent identifiers, but we hope that this data can be of use to us and future researchers examining health insurance network adequacy.
 
 
 ## Getting Started:
@@ -16,18 +16,18 @@ A pervasive problem in the American Healthcare system is the existence of “gho
 ## Using Ghost Hunter
 
 The main uses of Ghost Hunter are (1) to access the original datasets, "merge.csv" and "scrap.csv", (2)
-to view the dashboard visualizations which depict trends in matches accross Illinois geography
-and specific health care provider types, and (3) to re-run the web-scrape and matching process
-we used to construt our data set.
+to view the dashboard visualizations that depict trends in matches across Illinois geography
+and specific healthcare provider types, and (3) to re-run the web-scrape and matching process
+we used to construct our data set.
 
 ## Merge and Scrap
 
-Merge.csv and Scrap.csv are two subsets of County Care's proivder network. Merge is the data that we were able to
+Merge.csv and Scrap.csv are two subsets of County Care's provider network. Merge is the data that we were able to
 link with NPI numbers. While we have provided a limited number of variables in Merge that is because the first name, 
 last name, NPI number combination should allow researchers to easily link this data with external data. 
 
-Scrap.csv encompasses all of the unique providers that we were able to scrape from county care's website, after removing duplicates. Each row is a provider, not a person. Some providers are people (such as doctors, dentists, etc.) But some
-are health care companies such as hospital groups and long-term-care facilities. We recommend using the "type" column for
+Scrap.csv encompasses all of the unique providers that we were able to scrape from County Care's website, after removing duplicates. Each row is a provider, not a person. Some providers are people (such as doctors, dentists, etc.) However, some
+are healthcare companies such as hospital groups and long-term-care facilities. We recommend using the "type" column for
 additional clarity.
 
 
@@ -45,10 +45,10 @@ repository and run:
     ```poetry install ```
 and then
     ```poetry shell```
-to ensure that all your pacakages are installed and your virtual environment is working.
+to ensure that all your packages are installed and your virtual environment is working.
 
-3) In order to create view a unique link where our visualizations are hosted navigate to the root of your
-repository where "gh should be the only folder. Then run:
+3) In order to create and view a unique link where our visualizations are hosted navigate to the root of your
+the repository where "gh should be the only folder. Then run:
 ```python -m gh```
 If you haven't activated your poetry shell you might need to run:
 ```poetry python -m gh```.
@@ -58,9 +58,9 @@ You might also get a large red warning about it being a development server. Don'
 
 ## Re-Running the Webscraping and Matching Process
 
-Provider networks chnage month to month as doctors and insurers evaluate
-their relationships in relation to the market. Depending on the permanance of
-County Care's Website, Ghost Hunter is a useful tool for getting point source infromation
+Provider networks change month to month as doctors and insurers evaluate
+their relationships in relation to the market. Depending on the permanence of
+County Care's Website, Ghost Hunter is a useful tool for getting point source information
 about the size and strength of County Care's provider Network. Before using the web scraper,
 make sure that your computational needs are minimal and that you are able to leave your computer alone
 and connected to a power source. The previous web scrape combined took approximately 24 hours to complete.
@@ -72,7 +72,7 @@ be re-run until all specified searches are complete.
 repository and run: ```git clone https://github.com/Jibbie17/Ghost-Hunter```
 
 2) Run: ``` poetry install ``` and then ``` poetry shell ```
-to ensure that all your pacakages are installed and your virtual environment is working.
+to ensure that all your packages are installed and your virtual environment is working.
 
 3) Before you launch the scraper you should make sure you have the write data files. The two data files we use on matching,
 the NPI monthly download file and the IMPACT database, are very large and cannot be stored in git. In addition, they
@@ -92,16 +92,16 @@ scrape. You should see:
 Would you like to overwrite this file? [y/n]"
 
 If so, we recommend that you answer n. If you answer y, the scraper will clean out your last file and 
-The scrape takes a long time, and is built such that each querry adds data to the same file, UNLESS you sepcify at the first prompt that you want to overwrite.
+The scrape takes a long time and is built such that each query adds data to the same file UNLESS you specify at the first prompt that you want to overwrite.
 
-6) You will then be asked if you want monitoring during the search. Specifically:
+6) You will then be asked if you want to monitor during the search. Specifically:
 
 "Would you like to see the scrape result appear live in your terminal? [y/n]"
 
 If you select yes, MONITORING, will be turned on and the scraper will provide intermittent
 progress updates to your terminal.
 
-7) Sit back, relax and let the computer do the work!
+7) Sit back, relax, and let the computer do the work!
 
 
 
